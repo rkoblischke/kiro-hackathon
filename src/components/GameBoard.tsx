@@ -20,7 +20,7 @@ import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
 import { ActionButtons } from './ActionButtons';
-import { getCharacterById, getDefaultPlayer, getDefaultOpponent, createCharacterFromTemplate } from '../data/characters';
+import { getCharacterById, createCharacterFromTemplate } from '../data/characters';
 import { SplashAnimation } from './SplashAnimation';
 import './GameBoard.css';
 
@@ -64,7 +64,12 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
   const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   const [showSplash, setShowSplash] = useState(false);
-  const [showStartScreen, setShowStartScreen] = useState(true);
+
+  // Start background music when component mounts
+  useEffect(() => {
+    startBackgroundMusic();
+    return () => stopBackgroundMusic();
+  }, []);
 
   // Check for game over after each state change
   useEffect(() => {
@@ -238,11 +243,6 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
     setShowSplash(false);
   };
 
-  const handleStartGame = () => {
-    setShowStartScreen(false);
-    startBackgroundMusic();
-  };
-
   // Determine dialogue speaker
   const getSpeaker = (): 'player' | 'opponent' | 'system' => {
     if (gameState.phase === 'game-over') return 'system';
@@ -263,19 +263,6 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
 
   return (
     <div className="game-board">
-      {/* Start screen overlay */}
-      {showStartScreen && (
-        <div className="start-screen-overlay">
-          <div className="start-screen-content">
-            <h1 className="start-title">Monster Brawl</h1>
-            <p className="start-subtitle">A Halloween Insult Combat Game</p>
-            <button className="start-button" onClick={handleStartGame}>
-              Start Game
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Splash animation overlay */}
       <SplashAnimation show={showSplash} onComplete={handleSplashComplete} />
 
@@ -283,7 +270,7 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
       <div className="game-board-separator" />
 
       {/* Top area - Health bars at corners with character names */}
-      {!showStartScreen && <div className="health-bars-container">
+      <div className="health-bars-container">
         <HealthBar 
           current={gameState.player.health}
           max={gameState.player.maxHealth}
@@ -299,10 +286,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
           position="right"
           characterName={gameState.opponent.name}
         />
-      </div>}
+      </div>
 
       {/* Center area - Characters */}
-      {!showStartScreen && <div className="characters-container">
+      <div className="characters-container">
         <div className="character-section">
           <Character 
             character={gameState.player}
@@ -330,10 +317,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
             position="opponent"
           />
         </div>
-      </div>}
+      </div>
 
       {/* Dialogue bubble - centered above bottom panel */}
-      {!showStartScreen && gameState.message && gameState.phase !== 'game-over' && (
+      {gameState.message && gameState.phase !== 'game-over' && (
         <div className="floating-dialogue">
           <DialogueBox 
             message={gameState.message}
@@ -343,7 +330,7 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
       )}
 
       {/* Game over overlay - displayed on top of arena */}
-      {!showStartScreen && gameState.phase === 'game-over' && (
+      {gameState.phase === 'game-over' && (
         <div className="game-over-overlay">
           <div className="game-over-content">
             <DialogueBox 
@@ -358,7 +345,7 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
       )}
 
       {/* Bottom panel - Actions only */}
-      {!showStartScreen && gameState.phase !== 'game-over' && (
+      {gameState.phase !== 'game-over' && (
         <div className="bottom-panel">
           {showActions && (
             <ActionButtons 

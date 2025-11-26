@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CharacterTemplate } from '../types';
 import { CHARACTER_ROSTER } from '../data/characters';
 import { CharacterCard } from './CharacterCard';
@@ -23,6 +24,7 @@ interface CharacterSelectionProps {
  * Validates: Requirements 2.1, 2.2, 2.4, 2.5, 3.1
  */
 export const CharacterSelection: React.FC<CharacterSelectionProps> = ({ errorMessage }) => {
+  const navigate = useNavigate();
   const { navigateToCombat } = useGameContext();
   const [selectedCharacter, setSelectedCharacter] = useState<CharacterTemplate | null>(null);
   const [hoveredCharacter, setHoveredCharacter] = useState<CharacterTemplate | null>(null);
@@ -43,6 +45,7 @@ export const CharacterSelection: React.FC<CharacterSelectionProps> = ({ errorMes
     if (selectedCharacter) {
       const opponentId = selectedCharacter.opponentId;
       navigateToCombat(selectedCharacter.id, opponentId);
+      navigate('/battle');
     }
   };
 

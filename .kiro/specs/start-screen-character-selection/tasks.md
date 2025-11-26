@@ -156,7 +156,13 @@
   - Test URL parameter triggers shortcut
   - _Requirements: 1.1, 4.1_
 
-- [-] 8. Modify GameBoard to accept character props
+- [x] 8. Modify GameBoard to accept character props
+
+
+
+
+
+
 
 
 

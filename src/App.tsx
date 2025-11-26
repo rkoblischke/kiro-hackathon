@@ -44,7 +44,12 @@ function AppContent() {
     if (!flowState.selectedCharacterId || !flowState.selectedOpponentId) {
       return <Navigate to="/select" replace />
     }
-    return <GameBoard />
+    return (
+      <GameBoard 
+        playerId={flowState.selectedCharacterId} 
+        opponentId={flowState.selectedOpponentId} 
+      />
+    )
   }
 
   return (

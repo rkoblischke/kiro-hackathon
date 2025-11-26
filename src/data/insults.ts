@@ -98,13 +98,13 @@ export const INSULTS: Insult[] = [
   { id: 'ins90', text: "Even your tombstone will have spelling errors!", correctComebackId: 'com90', category: 'pun' },
   { id: 'ins91', text: "Your immortal reign is an immortal pain!", correctComebackId: 'com91', category: 'pun' },
   { id: 'ins92', text: "That fearsome reputation is just fearsome fiction!", correctComebackId: 'com92', category: 'creature' },
-  { id: 'ins93', text: "Your supernatural senses can't sense how ridiculous you look!", correctComebackId: 'com93', category: 'power' },
-  { id: 'ins94', text: "I bet your diary is just centuries of complaining!", correctComebackId: 'com94', category: 'social' },
+  { id: 'ins93', text: "Your supernatural senses can't sense how ridiculous you look!", correctComebackId: 'com93', category: 'pun' },
+  { id: 'ins94', text: "I bet your diary is just centuries of complaining!", correctComebackId: 'com94', category: 'pun' },
   { id: 'ins95', text: "Your dark dominion is more like dark delusion!", correctComebackId: 'com95', category: 'pun' },
   { id: 'ins96', text: "That imposing figure is more like imposing on everyone's patience!", correctComebackId: 'com96', category: 'pun' },
-  { id: 'ins97', text: "Your supernatural abilities are supernaturally overrated!", correctComebackId: 'com97', category: 'power' },
+  { id: 'ins97', text: "Your supernatural abilities are supernaturally overrated!", correctComebackId: 'com97', category: 'pun' },
   { id: 'ins98', text: "Even your pet bats want to unionize against you!", correctComebackId: 'com98', category: 'creature' },
-  { id: 'ins99', text: "Your centuries of terror are terribly boring!", correctComebackId: 'com99', category: 'social' },
+  { id: 'ins99', text: "Your centuries of terror are terribly boring!", correctComebackId: 'com99', category: 'pun' },
   { id: 'ins100', text: "That legendary vampire is legendarily laughable!", correctComebackId: 'com100', category: 'creature' }
 ];
 

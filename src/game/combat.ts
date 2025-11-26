@@ -20,13 +20,13 @@ export function evaluateCombat(insult: Insult, comeback: Comeback): CombatResult
   if (success) {
     return {
       success: true,
-      damage: 0,
-      message: "Perfect counter! No damage taken."
+      damage: 20, // Successful comeback deals 20 damage to attacker
+      message: "Perfect counter! The attacker takes damage."
     };
   } else {
     return {
       success: false,
-      damage: 15,
+      damage: 35, // Failed comeback means attacker deals 35 damage
       message: "The comeback failed! Taking damage."
     };
   }

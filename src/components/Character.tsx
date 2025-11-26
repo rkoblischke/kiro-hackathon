@@ -13,9 +13,12 @@ interface CharacterProps {
   isHurt: boolean;
   isVictory?: boolean;
   isDefeat?: boolean;
+  isWaiting?: boolean;
+  isReturning?: boolean;
+  position?: 'player' | 'opponent';
 }
 
-export function Character({ character, isAttacking, isDefending, isHurt, isVictory, isDefeat }: CharacterProps) {
+export function Character({ character, isAttacking, isDefending, isHurt, isVictory, isDefeat, isWaiting, isReturning, position = 'player' }: CharacterProps) {
   // Determine animation class based on props
   let animationClass = 'idle';
   
@@ -23,6 +26,10 @@ export function Character({ character, isAttacking, isDefending, isHurt, isVicto
     animationClass = 'victory';
   } else if (isDefeat) {
     animationClass = 'defeat';
+  } else if (isReturning) {
+    animationClass = 'returning';
+  } else if (isWaiting) {
+    animationClass = 'waiting';
   } else if (isAttacking) {
     animationClass = 'attacking';
   } else if (isDefending) {
@@ -32,7 +39,7 @@ export function Character({ character, isAttacking, isDefending, isHurt, isVicto
   }
 
   return (
-    <div className={`character-container ${animationClass}`}>
+    <div className={`character-container ${animationClass} ${position}`}>
       <div className="character-sprite-wrapper">
         <img 
           src={character.imageUrl} 

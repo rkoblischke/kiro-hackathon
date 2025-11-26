@@ -115,15 +115,21 @@ export function handleOpponentComebackResponse(gameState: GameState, comebackId:
   const isCorrect = selectedComeback.id === gameState.currentInsult.correctComebackId;
   
   let newOpponent = gameState.opponent;
+  let newPlayer = gameState.player;
   let message = '';
 
   if (isCorrect) {
-    message = `"${selectedComeback.text}" - Dracula successfully defended!`;
+    // Successful comeback - player (attacker) takes 20 damage
+    newPlayer = {
+      ...gameState.player,
+      health: Math.max(0, gameState.player.health - 20)
+    };
+    message = `"${selectedComeback.text}" - Dracula successfully defended! You take damage!`;
   } else {
-    // Apply damage to opponent
+    // Failed comeback - opponent takes 35 damage
     newOpponent = {
       ...gameState.opponent,
-      health: Math.max(0, gameState.opponent.health - 20)
+      health: Math.max(0, gameState.opponent.health - 35)
     };
     message = `"${selectedComeback.text}" - A weak response! Dracula takes damage!`;
   }
@@ -131,6 +137,7 @@ export function handleOpponentComebackResponse(gameState: GameState, comebackId:
   // Transition to opponent attack phase
   return {
     ...gameState,
+    player: newPlayer,
     opponent: newOpponent,
     phase: 'opponent-attack',
     currentTurn: 'opponent',
@@ -186,15 +193,21 @@ export function handlePlayerComebackSelection(gameState: GameState, comebackId: 
   const isCorrect = selectedComeback.id === gameState.currentInsult.correctComebackId;
   
   let newPlayer = gameState.player;
+  let newOpponent = gameState.opponent;
   let message = '';
 
   if (isCorrect) {
-    message = `"${selectedComeback.text}" - Excellent defense!`;
+    // Successful comeback - opponent (attacker) takes 20 damage
+    newOpponent = {
+      ...gameState.opponent,
+      health: Math.max(0, gameState.opponent.health - 20)
+    };
+    message = `"${selectedComeback.text}" - Excellent defense! Dracula takes damage!`;
   } else {
-    // Apply damage to player
+    // Failed comeback - player takes 35 damage
     newPlayer = {
       ...gameState.player,
-      health: Math.max(0, gameState.player.health - 20)
+      health: Math.max(0, gameState.player.health - 35)
     };
     message = `"${selectedComeback.text}" - Not quite right! You take damage!`;
   }
@@ -203,6 +216,7 @@ export function handlePlayerComebackSelection(gameState: GameState, comebackId: 
   return {
     ...gameState,
     player: newPlayer,
+    opponent: newOpponent,
     phase: 'player-attack',
     currentTurn: 'player',
     currentInsult: null,

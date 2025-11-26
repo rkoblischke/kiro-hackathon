@@ -2,11 +2,12 @@
   position: relative;
   display: inline-block;
   transition: transform 0.3s ease;
+  padding: 30px; /* Add padding to allow glow effects to extend */
 }
 
 .little-red-sprite-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to visible to allow glow effects */
 }
 
 .little-red-image {

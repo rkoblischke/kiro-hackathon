@@ -120,15 +120,24 @@
     - **Property 5: AI selection returns valid options**
     - **Validates: Requirements 3.1, 3.4, 8.2, 8.3**
 
-- [ ] 5. Implement game state management
-  - [ ] 5.1 Create game initialization function
+- [x] 5. Implement game state management
+
+
+
+
+
+  - [x] 5.1 Create game initialization function
+
+
     - Initialize both characters with full health (100 HP)
     - Set initial phase to 'player-attack'
     - Load insults and comebacks from data structure
     - Provide 3 random insults as initial available options
     - _Requirements: 1.1, 6.4, 8.1_
   
-  - [ ] 5.2 Create state transition functions
+  - [x] 5.2 Create state transition functions
+
+
     - Write function to handle player insult selection
     - Write function to handle opponent comeback response
     - Write function to handle opponent insult delivery
@@ -144,7 +153,9 @@
     - **Property 10: State transitions maintain consistency**
     - **Validates: Requirements 1.3**
   
-  - [ ] 5.5 Create game over detection function
+  - [x] 5.5 Create game over detection function
+
+
     - Check if either character's health is <= 0
     - Transition phase to 'game-over' when condition met
     - Set appropriate victory/defeat message
@@ -154,7 +165,9 @@
     - **Property 7: Game over detection**
     - **Validates: Requirements 5.1**
   
-  - [ ] 5.7 Create action blocking logic
+  - [x] 5.7 Create action blocking logic
+
+
     - Implement check to prevent actions when isAnimating is true
     - Implement check to prevent actions when phase is 'game-over'
     - _Requirements: 5.4, 7.5_

@@ -239,34 +239,29 @@
   }
 }
 
-/* Bottom panel - actions only */
-.bottom-panel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 1.5rem 1.5rem 1rem;
-  background: rgba(0, 0, 0, 0.85);
-  min-height: 100px;
-  max-height: 150px;
-  gap: 1.5rem;
-  overflow-y: auto;
+/* Game over overlay - displayed on top of arena */
+.game-over-overlay {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 500;
+  animation: fadeIn 0.5s ease-in;
 }
 
-.bottom-panel.game-over-layout {
+.game-over-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.game-over-message {
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 1rem;
+  gap: 2rem;
+  padding: 2rem;
+  animation: slideUp 0.8s ease-out;
 }
 
 .restart-button {
@@ -279,7 +274,6 @@
   border: 3px solid #ffa500;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: 0.5rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 140, 0, 0.4);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
@@ -296,6 +290,24 @@
 .restart-button:active {
   transform: translateY(0) scale(1);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Bottom panel - actions only */
+.bottom-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 1.5rem 1rem;
+  background: rgba(0, 0, 0, 0.85);
+  min-height: 100px;
+  max-height: 150px;
+  gap: 1.5rem;
+  overflow-y: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /* Responsive design - Requirements: 2.9 */

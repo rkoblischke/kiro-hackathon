@@ -304,30 +304,30 @@ export function GameBoard() {
         </div>
       )}
 
-      {/* Bottom panel - Actions only */}
-      {!showStartScreen && (
-        <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
-          {gameState.phase === 'game-over' && (
-            <div className="game-over-message">
-              <DialogueBox 
-                message={gameState.message}
-                speaker={getSpeaker()}
-              />
-            </div>
-          )}
+      {/* Game over overlay - displayed on top of arena */}
+      {!showStartScreen && gameState.phase === 'game-over' && (
+        <div className="game-over-overlay">
+          <div className="game-over-content">
+            <DialogueBox 
+              message={gameState.message}
+              speaker={getSpeaker()}
+            />
+            <button className="restart-button" onClick={handleRestart}>
+              Play Again
+            </button>
+          </div>
+        </div>
+      )}
 
+      {/* Bottom panel - Actions only */}
+      {!showStartScreen && gameState.phase !== 'game-over' && (
+        <div className="bottom-panel">
           {showActions && (
             <ActionButtons 
               options={actionOptions}
               onSelect={handleAction}
               disabled={gameState.isAnimating}
             />
-          )}
-
-          {gameState.phase === 'game-over' && (
-            <button className="restart-button" onClick={handleRestart}>
-              Play Again
-            </button>
           )}
         </div>
       )}

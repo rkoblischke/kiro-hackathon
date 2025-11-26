@@ -104,6 +104,8 @@ export function GameBoard() {
 
       if (!isCorrect) {
         // Opponent takes damage (35) - show splash animation, hurt animation, player returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setShowSplash(true);
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
@@ -114,6 +116,8 @@ export function GameBoard() {
         }, 500);
       } else {
         // Player takes damage (20) from successful comeback - show splash animation, hurt animation, player returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setShowSplash(true);
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
@@ -160,6 +164,8 @@ export function GameBoard() {
 
       if (!isCorrect) {
         // Player takes damage (35) - show splash animation, hurt animation, opponent returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setShowSplash(true);
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
@@ -170,6 +176,8 @@ export function GameBoard() {
         }, 500);
       } else {
         // Opponent takes damage (20) from successful comeback - show splash animation, hurt animation, opponent returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setShowSplash(true);
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });

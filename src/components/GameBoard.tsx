@@ -325,6 +325,7 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
           <DialogueBox 
             message={gameState.message}
             speaker={getSpeaker()}
+            category={gameState.currentInsult?.category}
           />
         </div>
       )}

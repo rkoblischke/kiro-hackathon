@@ -1,6 +1,6 @@
 /**
  * DialogueBox component styles
- * Requirements: 2.3, 2.4, 2.8
+ * Requirements: 2.3, 2.4, 2.8, 2.2, 2.5
  */
 
 .dialogue-box {
@@ -14,6 +14,14 @@
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
+}
+
+/* Category-specific styling - applied when category prop is provided */
+.dialogue-box-category {
+  /* Border color and box shadow are applied via inline styles for dynamic category colors */
+  /* This maintains backward compatibility while allowing category-specific colors */
+  border-width: 3px;
+  border-style: solid;
 }
 
 .dialogue-content {

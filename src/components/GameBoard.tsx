@@ -242,7 +242,7 @@ export function GameBoard() {
       </div>
 
       {/* Bottom panel - Dialogue and actions */}
-      <div className="bottom-panel">
+      <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
         <DialogueBox 
           message={gameState.message}
           speaker={getSpeaker()}

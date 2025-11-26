@@ -6,9 +6,6 @@ import { describe, it, expect } from 'vitest';
 import { 
   initializeGame, 
   handlePlayerInsultSelection,
-  handleOpponentComebackResponse,
-  handleOpponentInsultDelivery,
-  handlePlayerComebackSelection,
   checkGameOver,
   isGameOver,
   canPerformAction,

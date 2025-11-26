@@ -28,34 +28,19 @@ export function selectRandomInsult(availableInsults: Insult[]): Insult {
  * Future enhancement: add difficulty parameter for correct vs random selection
  * 
  * @param availableComebacks - Array of comebacks to choose from
- * @param currentInsult - The insult being responded to (for future difficulty implementation)
+ * @param _currentInsult - The insult being responded to (for future difficulty implementation)
  * @returns A selected comeback from the available options
  * 
  * Requirements: 3.1, 3.4, 8.2, 8.3
  */
-export function selectComeback(availableComebacks: Comeback[], currentInsult?: Insult): Comeback {
+export function selectComeback(availableComebacks: Comeback[], _currentInsult?: Insult): Comeback {
   if (availableComebacks.length === 0) {
     throw new Error('No available comebacks to select from');
   }
   
   // For initial implementation, always select randomly (easy difficulty)
-  // Future enhancement: use currentInsult.correctComebackId for harder difficulty
+  // Future enhancement: use _currentInsult.correctComebackId for harder difficulty
   const randomIndex = Math.floor(Math.random() * availableComebacks.length);
   return availableComebacks[randomIndex];
 }
 
-/**
- * Generic function to randomly select from any array of options
- * Used internally by other selection functions
- * 
- * @param options - Array of options to choose from
- * @returns A randomly selected option
- */
-function selectRandomOption<T>(options: T[]): T {
-  if (options.length === 0) {
-    throw new Error('No options available to select from');
-  }
-  
-  const randomIndex = Math.floor(Math.random() * options.length);
-  return options[randomIndex];
-}

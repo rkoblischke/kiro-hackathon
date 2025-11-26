@@ -180,32 +180,47 @@
     - **Property 9: Actions blocked after game over**
     - **Validates: Requirements 5.4**
 
-- [ ] 6. Create React components
-  - [ ] 6.1 Build Character component
+- [x] 6. Create React components
+
+
+
+
+
+  - [x] 6.1 Build Character component
+
+
     - Accept character data and animation state as props
     - Render character image with placeholder
     - Apply CSS classes for attacking, defending, hurt animations
     - _Requirements: 2.1, 7.1, 7.2, 7.3_
   
-  - [ ] 6.2 Build HealthBar component
+  - [x] 6.2 Build HealthBar component
+
+
     - Display health as percentage bar
     - Show current/max health numerically
     - Update reactively when health changes
     - _Requirements: 2.2_
   
-  - [ ] 6.3 Build DialogueBox component
+  - [x] 6.3 Build DialogueBox component
+
+
     - Display insult/comeback text
     - Style differently based on speaker (player/opponent/system)
     - Show game messages and combat results
     - _Requirements: 2.3, 2.4_
   
-  - [ ] 6.4 Build ActionButtons component
+  - [x] 6.4 Build ActionButtons component
+
+
     - Render list of clickable options (insults or comebacks)
     - Disable buttons when disabled prop is true
     - Handle click events and pass selected ID to parent
     - _Requirements: 1.2, 3.5, 6.2_
   
-  - [ ] 6.5 Build GameBoard component
+  - [x] 6.5 Build GameBoard component
+
+
     - Integrate all child components
     - Manage game state using React hooks
     - Orchestrate combat flow and turn progression
@@ -213,7 +228,9 @@
     - Provide restart functionality
     - _Requirements: 1.1, 1.3, 5.5, 6.3_
 
-- [ ] 7. Implement CSS animations
+- [-] 7. Implement CSS animations
+
+
   - Create keyframe animations for attacking (lunge forward)
   - Create keyframe animations for defending (recoil/block)
   - Create keyframe animations for hurt (shake and flash red)

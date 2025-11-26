@@ -1,0 +1,64 @@
+/**
+ * DialogueBox component styles
+ * Requirements: 2.3, 2.4
+ */
+
+.dialogue-box {
+  min-height: 80px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.dialogue-content {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Player dialogue styling */
+.dialogue-box-player {
+  background: linear-gradient(135deg, #dc143c, #8b0000);
+  border: 3px solid #ff6b6b;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.dialogue-box-player .dialogue-content {
+  font-style: italic;
+}
+
+/* Opponent dialogue styling */
+.dialogue-box-opponent {
+  background: linear-gradient(135deg, #4a0080, #1a0033);
+  border: 3px solid #8b00ff;
+  color: #e0e0ff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.dialogue-box-opponent .dialogue-content {
+  font-style: italic;
+}
+
+/* System message styling */
+.dialogue-box-system {
+  background: linear-gradient(135deg, #2a2a2a, #0a0a0a);
+  border: 3px solid #ff8c00;
+  color: #ffa500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.dialogue-box-system .dialogue-content {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Hover effect */
+.dialogue-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}

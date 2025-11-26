@@ -115,3 +115,15 @@ A web-based Halloween-themed sword fighting game inspired by Monkey Island's com
 3. WHEN a comeback is needed THEN the Game System SHALL retrieve matching options from the data structure
 4. WHEN evaluating a counter THEN the Game System SHALL use the data structure to determine correctness
 5. WHERE new content is added THEN the Game System SHALL incorporate it without code changes to core logic
+
+### Requirement 9
+
+**User Story:** As a player, I want to see dramatic Batman-style splash animations when damage is inflicted, so that successful hits feel impactful and exciting.
+
+#### Acceptance Criteria
+
+1. WHEN damage is successfully inflicted on a character THEN the Game System SHALL display a 1960s Batman-style splash animation in the center of the screen
+2. WHEN the splash animation displays THEN the Game System SHALL show comic book style text effects (e.g., "POW!", "BAM!", "WHAM!", "KAPOW!")
+3. WHEN the splash animation appears THEN the Game System SHALL use vibrant colors and bold styling reminiscent of 1960s comic books
+4. WHEN the splash animation plays THEN the Game System SHALL complete the animation within 600 milliseconds
+5. WHEN the splash animation completes THEN the Game System SHALL remove it from the display and continue with the next game action

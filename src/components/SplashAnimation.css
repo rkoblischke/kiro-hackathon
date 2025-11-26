@@ -1,0 +1,124 @@
+/**
+ * SplashAnimation styles - Batman-style comic book splash effect
+ * Requirements: 9.3, 9.4
+ */
+
+.splash-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.splash-word {
+  font-size: 8rem;
+  font-weight: 900;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  color: #FFD700;
+  text-shadow: 
+    -5px -5px 0 #000,
+    5px -5px 0 #000,
+    -5px 5px 0 #000,
+    5px 5px 0 #000,
+    -3px 0 0 #000,
+    3px 0 0 #000,
+    0 -3px 0 #000,
+    0 3px 0 #000;
+  background: 
+    radial-gradient(ellipse at center, #FF4500 0%, #FF6347 40%, #FFD700 70%, #FFA500 100%);
+  padding: 3rem 4rem;
+  animation: splash-in 400ms ease-out forwards, splash-hold 400ms 400ms forwards, splash-out 400ms 800ms ease-in forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 350px;
+  min-height: 250px;
+  margin: 0;
+  flex-shrink: 0;
+  position: relative;
+  clip-path: polygon(
+    50% 0%,
+    61% 10%,
+    75% 5%,
+    80% 20%,
+    95% 25%,
+    85% 40%,
+    100% 50%,
+    85% 60%,
+    95% 75%,
+    80% 80%,
+    75% 95%,
+    61% 90%,
+    50% 100%,
+    39% 90%,
+    25% 95%,
+    20% 80%,
+    5% 75%,
+    15% 60%,
+    0% 50%,
+    15% 40%,
+    5% 25%,
+    20% 20%,
+    25% 5%,
+    39% 10%
+  );
+  border: 5px solid #000;
+}
+
+@keyframes splash-in {
+  0% {
+    transform: scale(0) rotate(-15deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes splash-hold {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes splash-out {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive sizing for smaller screens */
+@media (max-width: 768px) {
+  .splash-word {
+    font-size: 5rem;
+    min-width: 250px;
+    min-height: 180px;
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-word {
+    font-size: 3.5rem;
+    min-width: 180px;
+    min-height: 130px;
+    padding: 1.5rem 2rem;
+  }
+}

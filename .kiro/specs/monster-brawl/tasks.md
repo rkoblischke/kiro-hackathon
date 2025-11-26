@@ -352,6 +352,61 @@
     - Verify component structure matches layout requirements
     - _Requirements: 2.6, 2.7, 2.8_
 
-- [ ] 15. Final checkpoint - Verify layout and responsiveness
+- [x] 15. Implement Batman-style splash animation
+
+
+
+  - [x] 15.1 Create splash words data structure
+
+
+    - Create src/data/splashWords.ts with array of comic book style words (POW, BAM, WHAM, KAPOW, THWACK, BIFF, SOCK, ZAP, CRASH)
+    - Export array for use in splash animation component
+    - _Requirements: 9.2_
+  
+  - [x] 15.2 Build SplashAnimation component
+
+
+    - Create src/components/SplashAnimation.tsx component
+    - Accept show boolean, word string, and onComplete callback as props
+    - Render splash word with comic book styling (large bold text, vibrant colors, starburst background)
+    - Position absolutely in center of screen with high z-index
+    - _Requirements: 9.1, 9.2, 9.3_
+  
+  - [x] 15.3 Create CSS animations for splash effect
+
+
+    - Create src/components/SplashAnimation.css with keyframe animations
+    - Create keyframe animation for scale-in effect (starts small, grows to full size)
+    - Create keyframe animation for fade-out effect
+    - Add rotation for dynamic appearance
+    - Style with thick black outlines, vibrant background colors (yellow, red, orange, blue)
+    - Set total animation duration to 600ms
+    - _Requirements: 9.3, 9.4_
+  
+  - [x] 15.4 Integrate splash animation into GameBoard
+
+
+    - Import SplashAnimation component and splashWords data into GameBoard.tsx
+    - Add splash animation state to GameBoard (showSplash boolean, currentSplashWord string)
+    - Randomly select splash word from splashWords array when damage > 0 is applied
+    - Trigger splash animation display when damage is inflicted (in handleAIComeback and handlePlayerComeback)
+    - Call onComplete callback after 600ms to hide splash and continue game flow
+    - Ensure splash plays during hurt animation sequence
+    - _Requirements: 9.1, 9.5_
+  
+  - [ ]* 15.5 Write property test for splash animation trigger
+    - **Property 14: Splash animation triggers on damage**
+    - **Validates: Requirements 9.1**
+  
+  - [ ]* 15.6 Write unit tests for splash animation
+    - Test that SplashAnimation component renders when show is true
+    - Test that splash word is displayed correctly
+    - Test that onComplete callback is called after animation
+    - Verify component does not render when show is false
+    - _Requirements: 9.1, 9.2, 9.5_
+
+- [x] 16. Final checkpoint - Verify splash animations
+
+
+
   - Ensure all tests pass, ask the user if questions arise.
-  - Manually verify layout appears correctly in browser at different sizes

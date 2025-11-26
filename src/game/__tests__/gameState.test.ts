@@ -28,7 +28,7 @@ describe('Game State Management', () => {
       
       expect(gameState.phase).toBe('player-attack');
       expect(gameState.currentTurn).toBe('player');
-      expect(gameState.availableInsults).toHaveLength(3);
+      expect(gameState.availableInsults).toHaveLength(4);
       expect(gameState.availableComebacks).toHaveLength(0);
       expect(gameState.isAnimating).toBe(false);
     });
@@ -44,7 +44,7 @@ describe('Game State Management', () => {
       expect(newState.phase).toBe('opponent-defend');
       expect(newState.currentTurn).toBe('opponent');
       expect(newState.currentInsult?.id).toBe(insultId);
-      expect(newState.availableComebacks).toHaveLength(3);
+      expect(newState.availableComebacks).toHaveLength(4);
       expect(newState.availableInsults).toHaveLength(0);
     });
 

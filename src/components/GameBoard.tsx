@@ -19,12 +19,14 @@ import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
 import { ActionButtons } from './ActionButtons';
+import { SplashAnimation } from './SplashAnimation';
 import './GameBoard.css';
 
 export function GameBoard() {
   const [gameState, setGameState] = useState<GameState>(initializeGame());
   const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
+  const [showSplash, setShowSplash] = useState(false);
 
   // Check for game over after each state change
   useEffect(() => {
@@ -48,18 +50,18 @@ export function GameBoard() {
     if (gameState.isAnimating) return;
 
     if (gameState.phase === 'opponent-defend') {
-      // AI selects comeback after a delay
+      // AI selects comeback after a delay - increased to allow reading
       const timer = setTimeout(() => {
         handleAIComeback();
-      }, 1000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
 
     if (gameState.phase === 'opponent-attack') {
-      // AI selects insult after a delay
+      // AI selects insult after a delay - increased to allow reading
       const timer = setTimeout(() => {
         handleAIAttack();
-      }, 1000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [gameState.phase, gameState.isAnimating]);
@@ -95,7 +97,8 @@ export function GameBoard() {
       const isCorrect = selectedComeback.id === gameState.currentInsult!.correctComebackId;
 
       if (!isCorrect) {
-        // Opponent takes damage (35) - show hurt animation, player returns
+        // Opponent takes damage (35) - show splash animation, hurt animation, player returns
+        setShowSplash(true);
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
         setTimeout(() => {
@@ -104,7 +107,8 @@ export function GameBoard() {
           setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         }, 500);
       } else {
-        // Player takes damage (20) from successful comeback - show hurt animation, player returns
+        // Player takes damage (20) from successful comeback - show splash animation, hurt animation, player returns
+        setShowSplash(true);
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setTimeout(() => {
@@ -145,7 +149,8 @@ export function GameBoard() {
       const isCorrect = comebackId === gameState.currentInsult!.correctComebackId;
 
       if (!isCorrect) {
-        // Player takes damage (35) - show hurt animation, opponent returns
+        // Player takes damage (35) - show splash animation, hurt animation, opponent returns
+        setShowSplash(true);
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
         setTimeout(() => {
@@ -154,7 +159,8 @@ export function GameBoard() {
           setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         }, 500);
       } else {
-        // Opponent takes damage (20) from successful comeback - show hurt animation, opponent returns
+        // Opponent takes damage (20) from successful comeback - show splash animation, hurt animation, opponent returns
+        setShowSplash(true);
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setTimeout(() => {
@@ -169,6 +175,11 @@ export function GameBoard() {
     setGameState(initializeGame());
     setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
     setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
+    setShowSplash(false);
+  };
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
   };
 
   // Determine dialogue speaker
@@ -191,6 +202,12 @@ export function GameBoard() {
 
   return (
     <div className="game-board">
+      {/* Splash animation overlay */}
+      <SplashAnimation show={showSplash} onComplete={handleSplashComplete} />
+
+      {/* Fixed separator line */}
+      <div className="game-board-separator" />
+
       {/* Top area - Health bars at corners with character names */}
       <div className="health-bars-container">
         <HealthBar 
@@ -241,12 +258,26 @@ export function GameBoard() {
         </div>
       </div>
 
-      {/* Bottom panel - Dialogue and actions */}
+      {/* Dialogue bubble - centered above bottom panel */}
+      {gameState.message && gameState.phase !== 'game-over' && (
+        <div className="floating-dialogue">
+          <DialogueBox 
+            message={gameState.message}
+            speaker={getSpeaker()}
+          />
+        </div>
+      )}
+
+      {/* Bottom panel - Actions only */}
       <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
-        <DialogueBox 
-          message={gameState.message}
-          speaker={getSpeaker()}
-        />
+        {gameState.phase === 'game-over' && (
+          <div className="game-over-message">
+            <DialogueBox 
+              message={gameState.message}
+              speaker={getSpeaker()}
+            />
+          </div>
+        )}
 
         {showActions && (
           <ActionButtons 

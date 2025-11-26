@@ -26,13 +26,15 @@ monster-brawl/
 │   │   ├── Character.tsx
 │   │   ├── HealthBar.tsx
 │   │   ├── DialogueBox.tsx
-│   │   └── ActionButtons.tsx
+│   │   ├── ActionButtons.tsx
+│   │   └── SplashAnimation.tsx
 │   ├── game/             # Game logic
 │   │   ├── gameState.ts
 │   │   ├── combat.ts
 │   │   └── ai.ts
 │   ├── data/             # Game content
-│   │   └── insults.ts
+│   │   ├── insults.ts
+│   │   └── splashWords.ts
 │   ├── types/            # TypeScript types
 │   │   └── index.ts
 │   └── App.tsx           # Root component
@@ -110,6 +112,11 @@ interface CombatResult {
 - Props: `{ options: Array<{id: string, text: string}>, onSelect: (id: string) => void, disabled: boolean }`
 - Responsibilities: Render clickable options, handle selection
 - Position: Bottom panel of screen, below or integrated with dialogue
+
+**SplashAnimation**: Displays Batman-style comic book splash effects
+- Props: `{ show: boolean, onComplete: () => void }`
+- Responsibilities: Render random splash word with comic book styling, auto-dismiss after animation
+- Position: Center of screen, overlaying other elements
 
 ## Data Models
 
@@ -213,6 +220,14 @@ Property 13: Responsive layout integrity
 *For any* viewport width >= 320px, all UI elements (health bars, characters, dialogue, buttons) should remain visible and readable
 **Validates: Requirements 2.9**
 
+Property 14: Splash animation triggers on damage
+*For any* combat action that results in damage > 0, a splash animation should be displayed in the center of the screen
+**Validates: Requirements 9.1**
+
+Property 15: Splash animation displays valid text
+*For any* splash animation triggered, the displayed text should be one of the valid comic book style effects (POW, BAM, WHAM, KAPOW, etc.)
+**Validates: Requirements 9.2**
+
 ## Error Handling
 
 ### Input Validation
@@ -290,11 +305,13 @@ src/
 - `.hurt`: Character shakes and flashes red
 - `.victory`: Character celebrates with triumphant pose
 - `.defeat`: Character collapses dramatically
+- `.splash-animation`: Batman-style comic book splash effect
 
 ### Animation Timing
 - Attack animations: 800ms
 - Defend animations: 600ms
 - Hurt animations: 500ms
+- Splash animations: 600ms
 - Text display delays: 300ms between messages
 
 ### Animation Flow
@@ -302,8 +319,32 @@ src/
 2. Set `isAnimating: true` to block further input
 3. Display dialogue text
 4. Play character animations
-5. Update health/state after animation completes
-6. Set `isAnimating: false` to allow next action
+5. If damage is inflicted → display splash animation
+6. Update health/state after animation completes
+7. Set `isAnimating: false` to allow next action
+
+### Batman-Style Splash Animation
+
+When damage is successfully inflicted, a 1960s Batman-style splash animation appears in the center of the screen:
+
+**Visual Design:**
+- Large, bold text (POW!, BAM!, WHAM!, KAPOW!, THWACK!, BIFF!, SOCK!)
+- Vibrant colors: yellow, red, orange, blue backgrounds with contrasting text
+- Starburst or explosion shape behind text
+- Thick black outlines and comic book styling
+- Rotated slightly for dynamic effect
+
+**Implementation:**
+- Component: `SplashAnimation.tsx`
+- Randomly selects from array of splash words
+- Positioned absolutely in center of screen (z-index above other elements)
+- CSS animations for scale-in and fade-out effects
+- Auto-removes after 600ms
+
+**Trigger Conditions:**
+- Appears whenever `damage > 0` is applied to a character
+- Does not appear for successful defenses (no damage)
+- Plays during the hurt animation sequence
 
 ## Layout and Responsive Design
 

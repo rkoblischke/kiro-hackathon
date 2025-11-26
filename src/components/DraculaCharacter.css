@@ -1,0 +1,206 @@
+.dracula-container {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.dracula-sprite-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.dracula-image {
+  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5));
+  transition: all 0.3s ease;
+}
+
+/* Idle animation - hands curled up, defensive stance with subtle breathing */
+.dracula-container.idle .dracula-sprite-wrapper {
+  animation: draculaIdleWrapper 2s ease-in-out infinite;
+}
+
+.dracula-container.idle .dracula-image {
+  animation: draculaIdle 2s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes draculaIdleWrapper {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes draculaIdle {
+  0%, 100% {
+    transform: scale(1, 1) scaleX(0.98);
+  }
+  50% {
+    transform: scale(1.02, 0.98) scaleX(1);
+  }
+}
+
+/* Attacking animation - aggressive lunge with arm extension simulation */
+.dracula-container.attacking .dracula-sprite-wrapper {
+  animation: draculaAttackWrapper 0.6s ease-out;
+}
+
+.dracula-container.attacking .dracula-image {
+  animation: draculaAttack 0.6s ease-out;
+}
+
+@keyframes draculaAttackWrapper {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+  30% {
+    transform: translateX(-15px) skewX(-3deg);
+  }
+  60% {
+    transform: translateX(35px) skewX(5deg);
+  }
+  100% {
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
+@keyframes draculaAttack {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5)) brightness(1);
+  }
+  30% {
+    transform: scale(0.95, 1.05) rotate(-3deg);
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.8)) brightness(1.1);
+  }
+  60% {
+    transform: scale(1.15, 0.95) rotate(3deg);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)) brightness(1.2);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5)) brightness(1);
+  }
+}
+
+/* Defending animation - recoil with arms up (simulated by squashing) */
+.dracula-container.defending .dracula-sprite-wrapper {
+  animation: draculaDefendWrapper 0.5s ease-out;
+}
+
+.dracula-container.defending .dracula-image {
+  animation: draculaDefend 0.5s ease-out;
+}
+
+@keyframes draculaDefendWrapper {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes draculaDefend {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(0.85, 1.1) scaleX(0.9);
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.7)) brightness(0.9);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+/* Hurt animation - violent shake with color distortion */
+.dracula-container.hurt .dracula-sprite-wrapper {
+  animation: draculaHurtWrapper 0.5s ease-out;
+}
+
+.dracula-container.hurt .dracula-image {
+  animation: draculaHurt 0.5s ease-out;
+}
+
+@keyframes draculaHurtWrapper {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-8px) rotate(-2deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(8px) rotate(2deg);
+  }
+}
+
+@keyframes draculaHurt {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5)) brightness(1) hue-rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 1)) brightness(1.3) hue-rotate(10deg) saturate(2);
+  }
+  20%, 40%, 60%, 80% {
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 1)) brightness(1.3) hue-rotate(-10deg) saturate(2);
+  }
+}
+
+/* Victory animation - triumphant expansion */
+.dracula-container.victory .dracula-sprite-wrapper {
+  animation: draculaVictoryWrapper 1s ease-in-out infinite;
+}
+
+.dracula-container.victory .dracula-image {
+  animation: draculaVictory 1s ease-in-out infinite;
+}
+
+@keyframes draculaVictoryWrapper {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes draculaVictory {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.7)) brightness(1.1);
+  }
+  25% {
+    transform: scale(1.08, 1.12) rotate(-3deg);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.9)) brightness(1.2);
+  }
+  75% {
+    transform: scale(1.08, 1.12) rotate(3deg);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.9)) brightness(1.2);
+  }
+}
+
+/* Health bar styling */
+.health-bar-container {
+  width: 100%;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid #8b0000;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #8b0000, #ff0000);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}

@@ -1,0 +1,195 @@
+.little-red-container {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.little-red-sprite-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.little-red-image {
+  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.5));
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+/* Idle animation - ready stance with subtle movement */
+.little-red-container.idle .little-red-sprite-wrapper {
+  animation: littleRedIdleWrapper 2.5s ease-in-out infinite;
+}
+
+.little-red-container.idle .little-red-image {
+  animation: littleRedIdle 2.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes littleRedIdleWrapper {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes littleRedIdle {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.01, 0.99);
+  }
+}
+
+/* Attacking animation - aggressive forward strike */
+.little-red-container.attacking .little-red-sprite-wrapper {
+  animation: littleRedAttackWrapper 0.6s ease-out;
+}
+
+.little-red-container.attacking .little-red-image {
+  animation: littleRedAttack 0.6s ease-out;
+}
+
+@keyframes littleRedAttackWrapper {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+  30% {
+    transform: translateX(15px) skewX(3deg);
+  }
+  60% {
+    transform: translateX(-35px) skewX(-5deg);
+  }
+  100% {
+    transform: translateX(0) skewX(0deg);
+  }
+}
+
+@keyframes littleRedAttack {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.5)) brightness(1);
+  }
+  30% {
+    transform: scale(0.95, 1.05) rotate(3deg);
+    filter: drop-shadow(0 0 15px rgba(220, 20, 60, 0.8)) brightness(1.1);
+  }
+  60% {
+    transform: scale(1.15, 0.95) rotate(-3deg);
+    filter: drop-shadow(0 0 20px rgba(255, 50, 50, 1)) brightness(1.2);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.5)) brightness(1);
+  }
+}
+
+/* Defending animation - dodge with defensive crouch */
+.little-red-container.defending .little-red-sprite-wrapper {
+  animation: littleRedDefendWrapper 0.5s ease-out;
+}
+
+.little-red-container.defending .little-red-image {
+  animation: littleRedDefend 0.5s ease-out;
+}
+
+@keyframes littleRedDefendWrapper {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(25px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes littleRedDefend {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(0.85, 1.1);
+    filter: drop-shadow(0 0 15px rgba(220, 20, 60, 0.7)) brightness(0.9);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+/* Hurt animation - violent shake with pain effect */
+.little-red-container.hurt .little-red-sprite-wrapper {
+  animation: littleRedHurtWrapper 0.5s ease-out;
+}
+
+.little-red-container.hurt .little-red-image {
+  animation: littleRedHurt 0.5s ease-out;
+}
+
+@keyframes littleRedHurtWrapper {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(8px) rotate(2deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(-8px) rotate(-2deg);
+  }
+}
+
+@keyframes littleRedHurt {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.5)) brightness(1) hue-rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    filter: drop-shadow(0 0 25px rgba(255, 100, 100, 1)) brightness(1.3) hue-rotate(-10deg) saturate(2);
+  }
+  20%, 40%, 60%, 80% {
+    filter: drop-shadow(0 0 25px rgba(255, 100, 100, 1)) brightness(1.3) hue-rotate(10deg) saturate(2);
+  }
+}
+
+/* Victory animation - joyful celebration */
+.little-red-container.victory .little-red-sprite-wrapper {
+  animation: littleRedVictoryWrapper 1s ease-in-out infinite;
+}
+
+.little-red-container.victory .little-red-image {
+  animation: littleRedVictory 1s ease-in-out infinite;
+}
+
+@keyframes littleRedVictoryWrapper {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes littleRedVictory {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 15px rgba(220, 20, 60, 0.7)) brightness(1.1);
+  }
+  25% {
+    transform: scale(1.08, 1.12) rotate(3deg);
+    filter: drop-shadow(0 0 20px rgba(255, 50, 50, 0.9)) brightness(1.2);
+  }
+  75% {
+    transform: scale(1.08, 1.12) rotate(-3deg);
+    filter: drop-shadow(0 0 20px rgba(255, 50, 50, 0.9)) brightness(1.2);
+  }
+}
+
+/* Health bar styling for player */
+.health-bar.player {
+  background: linear-gradient(90deg, #dc143c, #ff6b6b);
+  box-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+}

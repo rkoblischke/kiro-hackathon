@@ -158,3 +158,46 @@ h1 {
     transform: scaleX(-1);
   }
 }
+
+/* Control buttons */
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.action-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #8b0000, #ff4500);
+  color: white;
+  border: 2px solid #ff6b35;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 107, 53, 0.5);
+  background: linear-gradient(135deg, #a00000, #ff5722);
+}
+
+.action-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.action-button.reset {
+  background: linear-gradient(135deg, #4a4a4a, #6a6a6a);
+  border-color: #888;
+}
+
+.action-button.reset:hover {
+  background: linear-gradient(135deg, #5a5a5a, #7a7a7a);
+  box-shadow: 0 6px 12px rgba(100, 100, 100, 0.5);
+}

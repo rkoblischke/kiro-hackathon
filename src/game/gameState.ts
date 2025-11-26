@@ -5,38 +5,28 @@
 
 import { GameState, Character, Insult, Comeback } from '../types';
 import { INSULTS, COMEBACKS } from '../data/insults';
+import { getDefaultPlayer, getDefaultOpponent, createCharacterFromTemplate } from '../data/characters';
 
 /**
  * Creates the initial game state with both characters at full health
  * and sets up the first turn for the player
  * 
- * Requirements: 1.1, 6.4, 8.1
+ * Requirements: 1.1, 6.4, 8.1, 3.1, 3.2, 3.4, 3.5
+ * 
+ * @param player - Optional player character (defaults to first character in roster)
+ * @param opponent - Optional opponent character (defaults to second character in roster)
  */
-export function initializeGame(): GameState {
-  // Initialize player character (Little Red Riding Hood)
-  const player: Character = {
-    id: 'player',
-    name: 'Little Red Riding Hood',
-    health: 100,
-    maxHealth: 100,
-    imageUrl: '/RedRidingHood.png'
-  };
-
-  // Initialize opponent character (Dracula)
-  const opponent: Character = {
-    id: 'opponent',
-    name: 'Dracula',
-    health: 100,
-    maxHealth: 100,
-    imageUrl: '/Dracula.svg'
-  };
+export function initializeGame(player?: Character, opponent?: Character): GameState {
+  // Use provided characters or create defaults from roster
+  const finalPlayer = player || createCharacterFromTemplate(getDefaultPlayer(), 'player');
+  const finalOpponent = opponent || createCharacterFromTemplate(getDefaultOpponent(), 'opponent');
 
   // Select 3 random insults for initial player options
   const availableInsults = getRandomInsults(3);
 
   return {
-    player,
-    opponent,
+    player: finalPlayer,
+    opponent: finalOpponent,
     currentTurn: 'player',
     phase: 'player-attack',
     currentInsult: null,

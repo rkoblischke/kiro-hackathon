@@ -56,7 +56,12 @@
   - Test clicking proceed button triggers navigation
   - _Requirements: 1.2, 1.3, 1.5_
 
-- [ ] 4. Implement CharacterCard component
+- [x] 4. Implement CharacterCard component
+
+
+
+
+
   - Create CharacterCard component to display individual character
   - Add props for character data, selection state, and hover state
   - Implement hover effects (scale, shadow)
@@ -71,7 +76,12 @@
   - Test click handler is called
   - _Requirements: 2.2, 2.3, 2.4_
 
-- [ ] 5. Implement CharacterSelection component
+- [x] 5. Implement CharacterSelection component
+
+
+
+
+
   - Create CharacterSelection component with state management
   - Load character roster and display as grid of CharacterCard components
   - Implement character selection logic
@@ -100,7 +110,12 @@
   - Test error message display
   - _Requirements: 2.1, 2.4, 2.5_
 
-- [ ] 6. Implement useTestingShortcut hook
+- [x] 6. Implement useTestingShortcut hook
+
+
+
+
+
   - Create custom hook to parse URL parameters
   - Extract character ID from query string
   - Validate character ID against roster
@@ -122,7 +137,12 @@
   - Test hook with malformed parameter
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 7. Add routing to App component
+- [x] 7. Add routing to App component
+
+
+
+
+
   - Install and configure React Router
   - Define routes for start screen, character selection, and game board
   - Wrap app with GameContext provider
@@ -136,7 +156,10 @@
   - Test URL parameter triggers shortcut
   - _Requirements: 1.1, 4.1_
 
-- [ ] 8. Modify GameBoard to accept character props
+- [-] 8. Modify GameBoard to accept character props
+
+
+
   - Add optional playerId and opponentId props to GameBoard
   - Implement character initialization from roster based on IDs
   - Create helper function to convert CharacterTemplate to Character

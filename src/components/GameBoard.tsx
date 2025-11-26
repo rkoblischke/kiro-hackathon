@@ -1,6 +1,6 @@
 /**
  * GameBoard component - Main game container that orchestrates combat flow
- * Requirements: 1.1, 1.3, 5.5, 6.3
+ * Requirements: 1.1, 1.3, 5.5, 6.3, 3.1, 3.2, 3.4, 3.5
  */
 
 import { useState, useEffect } from 'react';
@@ -19,10 +19,46 @@ import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
 import { ActionButtons } from './ActionButtons';
+import { getCharacterById, getDefaultPlayer, getDefaultOpponent, createCharacterFromTemplate } from '../data/characters';
 import './GameBoard.css';
 
-export function GameBoard() {
-  const [gameState, setGameState] = useState<GameState>(initializeGame());
+interface GameBoardProps {
+  playerId?: string;
+  opponentId?: string;
+}
+
+export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
+  // Initialize characters from roster based on IDs
+  const initializeCharacters = () => {
+    let playerCharacter;
+    let opponentCharacter;
+
+    if (playerId) {
+      const playerTemplate = getCharacterById(playerId);
+      if (playerTemplate) {
+        playerCharacter = createCharacterFromTemplate(playerTemplate, 'player');
+        
+        // If opponent ID is provided, use it; otherwise use the player's default opponent
+        const opponentTemplate = opponentId 
+          ? getCharacterById(opponentId) 
+          : getCharacterById(playerTemplate.opponentId);
+        
+        if (opponentTemplate) {
+          opponentCharacter = createCharacterFromTemplate(opponentTemplate, 'opponent');
+        }
+      }
+    } else if (opponentId) {
+      // If only opponent ID is provided, use default player
+      const opponentTemplate = getCharacterById(opponentId);
+      if (opponentTemplate) {
+        opponentCharacter = createCharacterFromTemplate(opponentTemplate, 'opponent');
+      }
+    }
+
+    return initializeGame(playerCharacter, opponentCharacter);
+  };
+
+  const [gameState, setGameState] = useState<GameState>(initializeCharacters());
   const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
 
@@ -182,7 +218,7 @@ export function GameBoard() {
   };
 
   const handleRestart = () => {
-    setGameState(initializeGame());
+    setGameState(initializeCharacters());
     setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
     setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   };

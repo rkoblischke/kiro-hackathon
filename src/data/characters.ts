@@ -14,15 +14,15 @@ export const CHARACTER_ROSTER: CharacterTemplate[] = [
     imageUrl: '/RedRidingHood.png',
     thumbnailUrl: '/RedRidingHood.png',
     maxHealth: 100,
-    opponentId: 'dracula'
+    opponentId: 'mummy'
   },
   {
-    id: 'dracula',
-    name: 'dracula',
-    displayName: 'Count Dracula',
-    description: 'The prince of darkness himself',
-    imageUrl: '/Dracula.svg',
-    thumbnailUrl: '/Dracula.svg',
+    id: 'mummy',
+    name: 'mummy',
+    displayName: 'The Mummy',
+    description: 'An ancient warrior wrapped in mystery',
+    imageUrl: '/Mummy.jpg',
+    thumbnailUrl: '/Mummy.jpg',
     maxHealth: 100,
     opponentId: 'little-red'
   }
@@ -47,4 +47,22 @@ export function getDefaultPlayer(): CharacterTemplate {
  */
 export function getDefaultOpponent(): CharacterTemplate {
   return CHARACTER_ROSTER[1];
+}
+
+/**
+ * Converts a CharacterTemplate to a Character instance for combat
+ * Requirements: 3.4, 7.3
+ * 
+ * @param template - Character template from roster
+ * @param role - Role in combat ('player' or 'opponent')
+ * @returns Character instance ready for combat
+ */
+export function createCharacterFromTemplate(template: CharacterTemplate, role: 'player' | 'opponent'): import('../types').Character {
+  return {
+    id: role,
+    name: template.displayName,
+    health: template.maxHealth,
+    maxHealth: template.maxHealth,
+    imageUrl: template.imageUrl
+  };
 }

@@ -58,7 +58,7 @@ export const CharacterSelection: React.FC<CharacterSelectionProps> = ({ errorMes
   return (
     <div className="character-selection">
       <div className="character-selection-container">
-        <h1 className="character-selection-title">Choose Your Fighter</h1>
+        <h1 className="character-selection-title">Choose Your Hero</h1>
 
         {errorMessage && (
           <div className="character-selection-error" role="alert">

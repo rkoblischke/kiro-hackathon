@@ -25,16 +25,6 @@ export const CHARACTER_ROSTER: CharacterTemplate[] = [
     thumbnailUrl: '/Mummy.png',
     maxHealth: 100,
     opponentId: 'dracula'
-  },
-  {
-    id: 'dracula',
-    name: 'dracula',
-    displayName: 'Dracula',
-    description: 'The legendary vampire lord',
-    imageUrl: '/Dracula.svg',
-    thumbnailUrl: '/Dracula.svg',
-    maxHealth: 100,
-    opponentId: 'little-red'
   }
 ];
 
@@ -56,7 +46,7 @@ export function getDefaultPlayer(): CharacterTemplate {
  * Helper function to get default opponent character
  */
 export function getDefaultOpponent(): CharacterTemplate {
-  return CHARACTER_ROSTER[2];
+  return CHARACTER_ROSTER[1];
 }
 
 /**

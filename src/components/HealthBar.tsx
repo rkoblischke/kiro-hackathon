@@ -25,14 +25,16 @@ export function HealthBar({ current, max, label, position = 'left', characterNam
           style={{ width: `${percentage}%` }}
         />
       </div>
-      <div className="health-bar-label">
-        {current}/{max} HP
-      </div>
-      {characterName && (
-        <div className="health-bar-character-name">
-          {characterName}
+      <div className="health-bar-info">
+        {characterName && (
+          <div className="health-bar-character-name">
+            {characterName}
+          </div>
+        )}
+        <div className="health-bar-label">
+          {current}/{max} HP
         </div>
-      )}
+      </div>
     </div>
   );
 }

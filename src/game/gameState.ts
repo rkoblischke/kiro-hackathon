@@ -21,8 +21,8 @@ export function initializeGame(player?: Character, opponent?: Character): GameSt
   const finalPlayer = player || createCharacterFromTemplate(getDefaultPlayer(), 'player');
   const finalOpponent = opponent || createCharacterFromTemplate(getDefaultOpponent(), 'opponent');
 
-  // Select 3 random insults for initial player options
-  const availableInsults = getRandomInsults(3);
+  // Select 4 random insults for initial player options
+  const availableInsults = getRandomInsults(4);
 
   return {
     player: finalPlayer,
@@ -79,7 +79,7 @@ export function handlePlayerInsultSelection(gameState: GameState, insultId: stri
     currentTurn: 'opponent',
     currentInsult: selectedInsult,
     availableInsults: [],
-    availableComebacks: getRandomComebacks(3), // Opponent gets 3 comeback options
+    availableComebacks: getRandomComebacks(4), // Opponent gets 4 comeback options
     message: `"${selectedInsult.text}" - Now Dracula must respond!`
   };
 }
@@ -132,7 +132,7 @@ export function handleOpponentComebackResponse(gameState: GameState, comebackId:
     phase: 'opponent-attack',
     currentTurn: 'opponent',
     currentInsult: null,
-    availableInsults: getRandomInsults(3), // Opponent gets 3 insult options
+    availableInsults: getRandomInsults(4), // Opponent gets 4 insult options
     availableComebacks: [],
     message
   };
@@ -157,7 +157,7 @@ export function handleOpponentInsultDelivery(gameState: GameState, insultId: str
     currentTurn: 'player',
     currentInsult: selectedInsult,
     availableInsults: [],
-    availableComebacks: getRandomComebacks(3), // Player gets 3 comeback options
+    availableComebacks: getRandomComebacks(4), // Player gets 4 comeback options
     message: `"${selectedInsult.text}" - Choose your comeback!`
   };
 }

@@ -1,0 +1,135 @@
+/**
+ * SplashAnimation styles - Gothic/fairy tale themed splash effect
+ * Requirements: 9.3, 9.4
+ */
+
+.splash-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.splash-word {
+  font-size: 8rem;
+  font-weight: 900;
+  font-family: 'Creepster', cursive, sans-serif;
+  color: #ff4444;
+  text-shadow: 
+    -4px -4px 0 #8b0000,
+    4px -4px 0 #8b0000,
+    -4px 4px 0 #8b0000,
+    4px 4px 0 #8b0000,
+    0 0 20px rgba(255, 68, 68, 0.8),
+    0 0 40px rgba(139, 0, 0, 0.6),
+    0 0 60px rgba(0, 0, 0, 0.9);
+  background: 
+    radial-gradient(ellipse at center, #1a0000 0%, #4a0000 30%, #8b0000 60%, #ff4444 100%);
+  padding: 3rem 4rem;
+  animation: splash-in 400ms ease-out forwards, splash-hold 400ms 400ms forwards, splash-out 400ms 800ms ease-in forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 350px;
+  min-height: 250px;
+  margin: 0;
+  flex-shrink: 0;
+  position: relative;
+  clip-path: polygon(
+    50% 0%,
+    55% 8%,
+    65% 5%,
+    70% 15%,
+    85% 20%,
+    78% 35%,
+    95% 45%,
+    85% 55%,
+    90% 70%,
+    75% 78%,
+    70% 92%,
+    58% 88%,
+    50% 100%,
+    42% 88%,
+    30% 92%,
+    25% 78%,
+    10% 70%,
+    15% 55%,
+    5% 45%,
+    22% 35%,
+    15% 20%,
+    30% 15%,
+    35% 5%,
+    45% 8%
+  );
+  border: 4px solid #8b0000;
+  box-shadow: 
+    0 0 30px rgba(255, 68, 68, 0.6),
+    inset 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes splash-in {
+  0% {
+    transform: scale(0) rotate(-10deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  50% {
+    transform: scale(1.15) rotate(3deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes splash-hold {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes splash-out {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(0.7) rotate(8deg);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+/* Responsive sizing for smaller screens */
+@media (max-width: 768px) {
+  .splash-word {
+    font-size: 5rem;
+    min-width: 250px;
+    min-height: 180px;
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-word {
+    font-size: 3.5rem;
+    min-width: 180px;
+    min-height: 130px;
+    padding: 1.5rem 2rem;
+  }
+}

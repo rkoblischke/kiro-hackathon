@@ -19,14 +19,14 @@ interface ActionButtonsProps {
 export function ActionButtons({ options, onSelect, disabled }: ActionButtonsProps) {
   return (
     <div className="action-buttons-container">
-      {options.map((option) => (
+      {options.map((option, index) => (
         <button
           key={option.id}
           className="action-button"
           onClick={() => onSelect(option.id)}
           disabled={disabled}
         >
-          {option.text}
+          <span className="action-number">{index + 1}.</span> {option.text}
         </button>
       ))}
     </div>

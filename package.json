@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "start": "node server/index.js",
-    "test": "vitest --run",
+    "test": "vitest",
     "test:watch": "vitest"
   },
   "keywords": [

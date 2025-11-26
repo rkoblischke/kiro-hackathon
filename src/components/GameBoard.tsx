@@ -15,11 +15,13 @@ import {
   setAnimationState
 } from '../game/gameState';
 import { selectRandomInsult, selectComeback } from '../game/ai';
+import { startBackgroundMusic, stopBackgroundMusic, playVictorySound, playDefeatSound } from '../utils/backgroundMusic';
 import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
 import { ActionButtons } from './ActionButtons';
 import { getCharacterById, getDefaultPlayer, getDefaultOpponent, createCharacterFromTemplate } from '../data/characters';
+import { SplashAnimation } from './SplashAnimation';
 import './GameBoard.css';
 
 interface GameBoardProps {
@@ -61,6 +63,8 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
   const [gameState, setGameState] = useState<GameState>(initializeCharacters());
   const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
+  const [showSplash, setShowSplash] = useState(false);
+  const [showStartScreen, setShowStartScreen] = useState(true);
 
   // Check for game over after each state change
   useEffect(() => {
@@ -68,13 +72,15 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
     if (updatedState.phase === 'game-over' && gameState.phase !== 'game-over') {
       setGameState(updatedState);
       
-      // Set victory/defeat animations
+      // Set victory/defeat animations and play appropriate sound
       if (gameState.player.health <= 0) {
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false, isWaiting: false, isReturning: false });
+        playDefeatSound();
       } else if (gameState.opponent.health <= 0) {
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true, isWaiting: false, isReturning: false });
+        playVictorySound();
       }
     }
   }, [gameState.player.health, gameState.opponent.health]);
@@ -84,18 +90,18 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
     if (gameState.isAnimating) return;
 
     if (gameState.phase === 'opponent-defend') {
-      // AI selects comeback after a delay
+      // AI selects comeback after a delay - increased to allow reading
       const timer = setTimeout(() => {
         handleAIComeback();
-      }, 1000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
 
     if (gameState.phase === 'opponent-attack') {
-      // AI selects insult after a delay
+      // AI selects insult after a delay - increased to allow reading
       const timer = setTimeout(() => {
         handleAIAttack();
-      }, 1000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [gameState.phase, gameState.isAnimating]);
@@ -135,9 +141,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
       const isCorrect = selectedComeback.id === gameState.currentInsult!.correctComebackId;
 
       if (!isCorrect) {
-        // Opponent takes damage (35) - show hurt animation, player returns
+        // Opponent takes damage (35) - show splash animation, hurt animation, player returns
         const hitSound = new Audio('/hit.wav');
         hitSound.play().catch(err => console.log('Audio play failed:', err));
+        setShowSplash(true);
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
         setTimeout(() => {
@@ -146,9 +153,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
           setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         }, 500);
       } else {
-        // Player takes damage (20) from successful comeback - show hurt animation, player returns
+        // Player takes damage (20) from successful comeback - show splash animation, hurt animation, player returns
         const hitSound = new Audio('/hit.wav');
         hitSound.play().catch(err => console.log('Audio play failed:', err));
+        setShowSplash(true);
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setTimeout(() => {
@@ -193,9 +201,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
       const isCorrect = comebackId === gameState.currentInsult!.correctComebackId;
 
       if (!isCorrect) {
-        // Player takes damage (35) - show hurt animation, opponent returns
+        // Player takes damage (35) - show splash animation, hurt animation, opponent returns
         const hitSound = new Audio('/hit.wav');
         hitSound.play().catch(err => console.log('Audio play failed:', err));
+        setShowSplash(true);
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
         setTimeout(() => {
@@ -204,9 +213,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
           setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         }, 500);
       } else {
-        // Opponent takes damage (20) from successful comeback - show hurt animation, opponent returns
+        // Opponent takes damage (20) from successful comeback - show splash animation, hurt animation, opponent returns
         const hitSound = new Audio('/hit.wav');
         hitSound.play().catch(err => console.log('Audio play failed:', err));
+        setShowSplash(true);
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setTimeout(() => {
@@ -221,6 +231,16 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
     setGameState(initializeCharacters());
     setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
     setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
+    setShowSplash(false);
+  };
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
+  const handleStartGame = () => {
+    setShowStartScreen(false);
+    startBackgroundMusic();
   };
 
   // Determine dialogue speaker
@@ -243,8 +263,27 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
 
   return (
     <div className="game-board">
+      {/* Start screen overlay */}
+      {showStartScreen && (
+        <div className="start-screen-overlay">
+          <div className="start-screen-content">
+            <h1 className="start-title">Monster Brawl</h1>
+            <p className="start-subtitle">A Halloween Insult Combat Game</p>
+            <button className="start-button" onClick={handleStartGame}>
+              Start Game
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Splash animation overlay */}
+      <SplashAnimation show={showSplash} onComplete={handleSplashComplete} />
+
+      {/* Fixed separator line */}
+      <div className="game-board-separator" />
+
       {/* Top area - Health bars at corners with character names */}
-      <div className="health-bars-container">
+      {!showStartScreen && <div className="health-bars-container">
         <HealthBar 
           current={gameState.player.health}
           max={gameState.player.maxHealth}
@@ -260,10 +299,10 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
           position="right"
           characterName={gameState.opponent.name}
         />
-      </div>
+      </div>}
 
       {/* Center area - Characters */}
-      <div className="characters-container">
+      {!showStartScreen && <div className="characters-container">
         <div className="character-section">
           <Character 
             character={gameState.player}
@@ -291,29 +330,45 @@ export function GameBoard({ playerId, opponentId }: GameBoardProps = {}) {
             position="opponent"
           />
         </div>
-      </div>
+      </div>}
 
-      {/* Bottom panel - Dialogue and actions */}
-      <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
-        <DialogueBox 
-          message={gameState.message}
-          speaker={getSpeaker()}
-        />
-
-        {showActions && (
-          <ActionButtons 
-            options={actionOptions}
-            onSelect={handleAction}
-            disabled={gameState.isAnimating}
+      {/* Dialogue bubble - centered above bottom panel */}
+      {!showStartScreen && gameState.message && gameState.phase !== 'game-over' && (
+        <div className="floating-dialogue">
+          <DialogueBox 
+            message={gameState.message}
+            speaker={getSpeaker()}
           />
-        )}
+        </div>
+      )}
 
-        {gameState.phase === 'game-over' && (
-          <button className="restart-button" onClick={handleRestart}>
-            Play Again
-          </button>
-        )}
-      </div>
+      {/* Game over overlay - displayed on top of arena */}
+      {!showStartScreen && gameState.phase === 'game-over' && (
+        <div className="game-over-overlay">
+          <div className="game-over-content">
+            <DialogueBox 
+              message={gameState.message}
+              speaker={getSpeaker()}
+            />
+            <button className="restart-button" onClick={handleRestart}>
+              Play Again
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom panel - Actions only */}
+      {!showStartScreen && gameState.phase !== 'game-over' && (
+        <div className="bottom-panel">
+          {showActions && (
+            <ActionButtons 
+              options={actionOptions}
+              onSelect={handleAction}
+              disabled={gameState.isAnimating}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

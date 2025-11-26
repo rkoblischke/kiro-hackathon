@@ -205,7 +205,9 @@
   width: 100%;
   padding: 0 2rem 1rem;
   gap: 4rem;
-  margin-top: -12vh;
+  margin-top: 0;
+  padding-bottom: 160px; /* Add space above bottom panel */
+  clip-path: inset(0 0 150px 0); /* Clip characters at bottom panel boundary */
 }
 
 .character-section {
@@ -306,7 +308,9 @@
   .characters-container {
     gap: 3rem;
     padding: 0 1.5rem 1rem;
-    margin-top: -9vh;
+    margin-top: 0;
+    padding-bottom: 100px;
+    clip-path: inset(0 0 90px 0);
   }
 
   .health-bars-container {
@@ -342,7 +346,9 @@
   .characters-container {
     gap: 2rem;
     padding: 0 1rem 0.75rem;
-    margin-top: -6vh;
+    margin-top: 0;
+    padding-bottom: 95px;
+    clip-path: inset(0 0 85px 0);
   }
 
   .health-bars-container {
@@ -393,6 +399,8 @@
   .characters-container {
     gap: 1.5rem;
     padding: 0.5rem 0.75rem;
+    padding-bottom: 90px;
+    clip-path: inset(0 0 80px 0);
   }
 
   .health-bars-container {
@@ -436,6 +444,8 @@
   .characters-container {
     gap: 1rem;
     padding: 0.25rem 0.5rem;
+    padding-bottom: 85px;
+    clip-path: inset(0 0 75px 0);
   }
 
   .health-bars-container {

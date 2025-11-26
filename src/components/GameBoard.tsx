@@ -15,7 +15,7 @@ import {
   setAnimationState
 } from '../game/gameState';
 import { selectRandomInsult, selectComeback } from '../game/ai';
-import { startBackgroundMusic, stopBackgroundMusic } from '../utils/backgroundMusic';
+import { startBackgroundMusic, stopBackgroundMusic, playVictorySound, playDefeatSound } from '../utils/backgroundMusic';
 import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
@@ -36,13 +36,15 @@ export function GameBoard() {
     if (updatedState.phase === 'game-over' && gameState.phase !== 'game-over') {
       setGameState(updatedState);
       
-      // Set victory/defeat animations
+      // Set victory/defeat animations and play appropriate sound
       if (gameState.player.health <= 0) {
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false, isWaiting: false, isReturning: false });
+        playDefeatSound();
       } else if (gameState.opponent.health <= 0) {
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true, isWaiting: false, isReturning: false });
+        playVictorySound();
       }
     }
   }, [gameState.player.health, gameState.opponent.health]);

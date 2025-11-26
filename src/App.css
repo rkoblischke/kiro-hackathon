@@ -37,3 +37,119 @@ h1 {
   font-weight: bold;
   color: #4ecdc4;
 }
+
+/* Animated Bats */
+.bat {
+  position: fixed;
+  font-size: 2rem;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bat1 {
+  top: 10%;
+  animation: flyBat1 15s infinite linear;
+}
+
+.bat2 {
+  top: 20%;
+  animation: flyBat2 18s infinite linear;
+}
+
+.bat3 {
+  top: 15%;
+  animation: flyBat3 20s infinite linear;
+}
+
+@keyframes flyBat1 {
+  0% {
+    left: -50px;
+    transform: scaleX(1);
+  }
+  48% {
+    transform: scaleX(1);
+  }
+  50% {
+    left: 50%;
+    transform: scaleX(-1);
+  }
+  98% {
+    transform: scaleX(-1);
+  }
+  100% {
+    left: -50px;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes flyBat2 {
+  0% {
+    left: 100%;
+    transform: scaleX(-1);
+  }
+  48% {
+    transform: scaleX(-1);
+  }
+  50% {
+    left: 30%;
+    transform: scaleX(1);
+  }
+  98% {
+    transform: scaleX(1);
+  }
+  100% {
+    left: 100%;
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes flyBat3 {
+  0% {
+    left: -50px;
+    transform: scaleX(1);
+  }
+  100% {
+    left: calc(100% + 50px);
+    transform: scaleX(1);
+  }
+}
+
+/* Animated Critters */
+.critter {
+  position: fixed;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.critter1 {
+  bottom: 10%;
+  animation: crawl1 25s infinite linear;
+}
+
+.critter2 {
+  bottom: 15%;
+  animation: crawl2 30s infinite linear;
+}
+
+@keyframes crawl1 {
+  0% {
+    left: -50px;
+  }
+  100% {
+    left: calc(100% + 50px);
+  }
+}
+
+@keyframes crawl2 {
+  0% {
+    left: 100%;
+    transform: scaleX(-1);
+  }
+  100% {
+    left: -50px;
+    transform: scaleX(-1);
+  }
+}

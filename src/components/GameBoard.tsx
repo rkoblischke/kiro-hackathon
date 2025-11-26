@@ -15,7 +15,7 @@ import {
   setAnimationState
 } from '../game/gameState';
 import { selectRandomInsult, selectComeback } from '../game/ai';
-import { startBackgroundMusic, stopBackgroundMusic } from '../utils/backgroundMusic';
+import { startBackgroundMusic, stopBackgroundMusic, playVictorySound, playDefeatSound } from '../utils/backgroundMusic';
 import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
@@ -36,13 +36,15 @@ export function GameBoard() {
     if (updatedState.phase === 'game-over' && gameState.phase !== 'game-over') {
       setGameState(updatedState);
       
-      // Set victory/defeat animations
+      // Set victory/defeat animations and play appropriate sound
       if (gameState.player.health <= 0) {
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false, isWaiting: false, isReturning: false });
+        playDefeatSound();
       } else if (gameState.opponent.health <= 0) {
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true, isWaiting: false, isReturning: false });
+        playVictorySound();
       }
     }
   }, [gameState.player.health, gameState.opponent.health]);
@@ -305,31 +307,30 @@ export function GameBoard() {
         </div>
       )}
 
-      {/* Bottom panel - Actions only */}
-      {!showStartScreen && (
-        <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
-          {gameState.phase === 'game-over' && (
-            <div className="game-over-message">
-              <DialogueBox 
-                message={gameState.message}
-                speaker={getSpeaker()}
-                category={gameState.currentInsult?.category}
-              />
-            </div>
-          )}
+      {/* Game over overlay - displayed on top of arena */}
+      {!showStartScreen && gameState.phase === 'game-over' && (
+        <div className="game-over-overlay">
+          <div className="game-over-content">
+            <DialogueBox 
+              message={gameState.message}
+              speaker={getSpeaker()}
+            />
+            <button className="restart-button" onClick={handleRestart}>
+              Play Again
+            </button>
+          </div>
+        </div>
+      )}
 
+      {/* Bottom panel - Actions only */}
+      {!showStartScreen && gameState.phase !== 'game-over' && (
+        <div className="bottom-panel">
           {showActions && (
             <ActionButtons 
               options={actionOptions}
               onSelect={handleAction}
               disabled={gameState.isAnimating}
             />
-          )}
-
-          {gameState.phase === 'game-over' && (
-            <button className="restart-button" onClick={handleRestart}>
-              Play Again
-            </button>
           )}
         </div>
       )}

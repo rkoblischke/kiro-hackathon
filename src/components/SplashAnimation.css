@@ -1,5 +1,5 @@
 /**
- * SplashAnimation styles - Batman-style comic book splash effect
+ * SplashAnimation styles - Gothic/fairy tale themed splash effect
  * Requirements: 9.3, 9.4
  */
 
@@ -19,19 +19,18 @@
 .splash-word {
   font-size: 8rem;
   font-weight: 900;
-  font-family: 'Impact', 'Arial Black', sans-serif;
-  color: #FFD700;
+  font-family: 'Creepster', cursive, sans-serif;
+  color: #ff4444;
   text-shadow: 
-    -5px -5px 0 #000,
-    5px -5px 0 #000,
-    -5px 5px 0 #000,
-    5px 5px 0 #000,
-    -3px 0 0 #000,
-    3px 0 0 #000,
-    0 -3px 0 #000,
-    0 3px 0 #000;
+    -4px -4px 0 #8b0000,
+    4px -4px 0 #8b0000,
+    -4px 4px 0 #8b0000,
+    4px 4px 0 #8b0000,
+    0 0 20px rgba(255, 68, 68, 0.8),
+    0 0 40px rgba(139, 0, 0, 0.6),
+    0 0 60px rgba(0, 0, 0, 0.9);
   background: 
-    radial-gradient(ellipse at center, #FF4500 0%, #FF6347 40%, #FFD700 70%, #FFA500 100%);
+    radial-gradient(ellipse at center, #1a0000 0%, #4a0000 30%, #8b0000 60%, #ff4444 100%);
   padding: 3rem 4rem;
   animation: splash-in 400ms ease-out forwards, splash-hold 400ms 400ms forwards, splash-out 400ms 800ms ease-in forwards;
   display: flex;
@@ -44,45 +43,51 @@
   position: relative;
   clip-path: polygon(
     50% 0%,
-    61% 10%,
-    75% 5%,
-    80% 20%,
-    95% 25%,
-    85% 40%,
-    100% 50%,
-    85% 60%,
-    95% 75%,
-    80% 80%,
-    75% 95%,
-    61% 90%,
+    55% 8%,
+    65% 5%,
+    70% 15%,
+    85% 20%,
+    78% 35%,
+    95% 45%,
+    85% 55%,
+    90% 70%,
+    75% 78%,
+    70% 92%,
+    58% 88%,
     50% 100%,
-    39% 90%,
-    25% 95%,
-    20% 80%,
-    5% 75%,
-    15% 60%,
-    0% 50%,
-    15% 40%,
-    5% 25%,
-    20% 20%,
-    25% 5%,
-    39% 10%
+    42% 88%,
+    30% 92%,
+    25% 78%,
+    10% 70%,
+    15% 55%,
+    5% 45%,
+    22% 35%,
+    15% 20%,
+    30% 15%,
+    35% 5%,
+    45% 8%
   );
-  border: 5px solid #000;
+  border: 4px solid #8b0000;
+  box-shadow: 
+    0 0 30px rgba(255, 68, 68, 0.6),
+    inset 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes splash-in {
   0% {
-    transform: scale(0) rotate(-15deg);
+    transform: scale(0) rotate(-10deg);
     opacity: 0;
+    filter: blur(10px);
   }
   50% {
-    transform: scale(1.2) rotate(5deg);
+    transform: scale(1.15) rotate(3deg);
     opacity: 1;
+    filter: blur(0px);
   }
   100% {
     transform: scale(1) rotate(0deg);
     opacity: 1;
+    filter: blur(0px);
   }
 }
 
@@ -90,6 +95,10 @@
   0%, 100% {
     transform: scale(1) rotate(0deg);
     opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
   }
 }
 
@@ -97,10 +106,12 @@
   0% {
     transform: scale(1) rotate(0deg);
     opacity: 1;
+    filter: blur(0px);
   }
   100% {
-    transform: scale(0.8) rotate(10deg);
+    transform: scale(0.7) rotate(8deg);
     opacity: 0;
+    filter: blur(8px);
   }
 }
 

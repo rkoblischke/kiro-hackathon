@@ -174,3 +174,176 @@ export function toggleBackgroundMusic() {
   }
   return isPlaying;
 }
+
+/**
+ * Play victory sound - 5 second triumphant fanfare
+ */
+export function playVictorySound() {
+  stopBackgroundMusic();
+  
+  try {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    
+    if (!gainNode) {
+      gainNode = audioContext.createGain();
+      gainNode.connect(audioContext.destination);
+    }
+
+    // Victory fanfare - triumphant 5-second melody
+    const victoryMelody = [
+      // Opening fanfare
+      { freq: 523.25, duration: 0.3 },  // C5
+      { freq: 523.25, duration: 0.3 },  // C5
+      { freq: 523.25, duration: 0.3 },  // C5
+      { freq: 523.25, duration: 0.5 },  // C5 (hold)
+      
+      // Ascending run
+      { freq: 392.00, duration: 0.2 },  // G4
+      { freq: 440.00, duration: 0.2 },  // A4
+      { freq: 493.88, duration: 0.2 },  // B4
+      { freq: 523.25, duration: 0.4 },  // C5
+      
+      // Triumphant phrase
+      { freq: 659.25, duration: 0.3 },  // E5
+      { freq: 783.99, duration: 0.3 },  // G5
+      { freq: 1046.50, duration: 0.6 }, // C6 (high)
+      
+      // Resolution phrase
+      { freq: 783.99, duration: 0.2 },  // G5
+      { freq: 659.25, duration: 0.2 },  // E5
+      { freq: 523.25, duration: 0.2 },  // C5
+      { freq: 659.25, duration: 0.3 },  // E5
+      { freq: 783.99, duration: 0.3 },  // G5
+      
+      // Final triumphant ending
+      { freq: 1046.50, duration: 0.4 }, // C6
+      { freq: 1046.50, duration: 0.4 }, // C6
+      { freq: 1046.50, duration: 0.8 }, // C6 (long hold)
+    ];
+
+    let time = audioContext.currentTime;
+    victoryMelody.forEach(note => {
+      // Main melody oscillator
+      const osc1 = audioContext!.createOscillator();
+      const noteGain1 = audioContext!.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(note.freq, time);
+      
+      noteGain1.gain.setValueAtTime(0, time);
+      noteGain1.gain.linearRampToValueAtTime(0.25, time + 0.01);
+      noteGain1.gain.linearRampToValueAtTime(0.2, time + note.duration - 0.05);
+      noteGain1.gain.linearRampToValueAtTime(0, time + note.duration);
+      
+      osc1.connect(noteGain1);
+      noteGain1.connect(gainNode!);
+      osc1.start(time);
+      osc1.stop(time + note.duration);
+      
+      // Harmony oscillator (fifth above)
+      const osc2 = audioContext!.createOscillator();
+      const noteGain2 = audioContext!.createGain();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(note.freq * 1.5, time);
+      
+      noteGain2.gain.setValueAtTime(0, time);
+      noteGain2.gain.linearRampToValueAtTime(0.12, time + 0.01);
+      noteGain2.gain.linearRampToValueAtTime(0.08, time + note.duration - 0.05);
+      noteGain2.gain.linearRampToValueAtTime(0, time + note.duration);
+      
+      osc2.connect(noteGain2);
+      noteGain2.connect(gainNode!);
+      osc2.start(time);
+      osc2.stop(time + note.duration);
+      
+      time += note.duration;
+    });
+  } catch (error) {
+    console.log('Victory sound failed to play:', error);
+  }
+}
+
+/**
+ * Play defeat sound - 5 second sad, melancholic melody
+ */
+export function playDefeatSound() {
+  stopBackgroundMusic();
+  
+  try {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    
+    if (!gainNode) {
+      gainNode = audioContext.createGain();
+      gainNode.connect(audioContext.destination);
+    }
+
+    // Defeat melody - sad, melancholic 5-second melody
+    const defeatMelody = [
+      // Opening sad descent
+      { freq: 329.63, duration: 0.4 },  // E4
+      { freq: 293.66, duration: 0.4 },  // D4
+      { freq: 261.63, duration: 0.4 },  // C4
+      { freq: 246.94, duration: 0.6 },  // B3 (hold)
+      
+      // Melancholic phrase
+      { freq: 220.00, duration: 0.3 },  // A3
+      { freq: 246.94, duration: 0.3 },  // B3
+      { freq: 261.63, duration: 0.3 },  // C4
+      { freq: 293.66, duration: 0.5 },  // D4 (hold)
+      
+      // Descending sorrow
+      { freq: 261.63, duration: 0.3 },  // C4
+      { freq: 246.94, duration: 0.3 },  // B3
+      { freq: 220.00, duration: 0.3 },  // A3
+      { freq: 196.00, duration: 0.4 },  // G3
+      
+      // Final resignation
+      { freq: 174.61, duration: 0.4 },  // F3
+      { freq: 164.81, duration: 0.4 },  // E3
+      { freq: 146.83, duration: 0.5 },  // D3
+      { freq: 130.81, duration: 1.0 },  // C3 (long sad ending)
+    ];
+
+    let time = audioContext.currentTime;
+    defeatMelody.forEach(note => {
+      // Main melody oscillator
+      const osc1 = audioContext!.createOscillator();
+      const noteGain1 = audioContext!.createGain();
+      osc1.type = 'triangle';
+      osc1.frequency.setValueAtTime(note.freq, time);
+      
+      noteGain1.gain.setValueAtTime(0, time);
+      noteGain1.gain.linearRampToValueAtTime(0.2, time + 0.02);
+      noteGain1.gain.linearRampToValueAtTime(0.12, time + note.duration - 0.1);
+      noteGain1.gain.linearRampToValueAtTime(0, time + note.duration);
+      
+      osc1.connect(noteGain1);
+      noteGain1.connect(gainNode!);
+      osc1.start(time);
+      osc1.stop(time + note.duration);
+      
+      // Minor third harmony for sadness
+      const osc2 = audioContext!.createOscillator();
+      const noteGain2 = audioContext!.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(note.freq * 1.2, time); // Minor third
+      
+      noteGain2.gain.setValueAtTime(0, time);
+      noteGain2.gain.linearRampToValueAtTime(0.1, time + 0.02);
+      noteGain2.gain.linearRampToValueAtTime(0.06, time + note.duration - 0.1);
+      noteGain2.gain.linearRampToValueAtTime(0, time + note.duration);
+      
+      osc2.connect(noteGain2);
+      noteGain2.connect(gainNode!);
+      osc2.start(time);
+      osc2.stop(time + note.duration);
+      
+      time += note.duration;
+    });
+  } catch (error) {
+    console.log('Defeat sound failed to play:', error);
+  }
+}

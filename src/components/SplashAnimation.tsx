@@ -1,5 +1,5 @@
 /**
- * SplashAnimation component - Batman-style comic book splash effect
+ * SplashAnimation component - Gothic/fairy tale themed splash effect
  * Requirements: 9.1, 9.2, 9.3
  */
 

@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-image: url('/monster_brawl_background_arena.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {

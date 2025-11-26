@@ -17,7 +17,7 @@ const LITTLE_RED: Character = {
   name: 'Little Red Riding Hood',
   health: 100,
   maxHealth: 100,
-  imageUrl: '/RedRidingHood.jpg'
+  imageUrl: '/RedRidingHood.png'
 }
 
 type CombatStage = 'idle' | 'attacking' | 'defending' | 'hurt' | 'victory';

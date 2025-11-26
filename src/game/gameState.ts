@@ -19,7 +19,7 @@ export function initializeGame(): GameState {
     name: 'Little Red Riding Hood',
     health: 100,
     maxHealth: 100,
-    imageUrl: '/RedRidingHood.jpg'
+    imageUrl: '/RedRidingHood.png'
   };
 
   // Initialize opponent character (Dracula)

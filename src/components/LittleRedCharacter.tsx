@@ -18,7 +18,7 @@ export function LittleRedCharacter({ health, maxHealth, combatStage = 'idle' }: 
     <div className={`little-red-container ${animationClass}`}>
       <div className="little-red-sprite-wrapper">
         <img 
-          src="/RedRidingHood.jpg" 
+          src="/RedRidingHood.png" 
           alt="Little Red Riding Hood" 
           className="little-red-image"
         />

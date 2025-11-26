@@ -263,7 +263,12 @@
 
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 10. Create placeholder assets and styling
+- [x] 10. Check placeholder assets and styling
+
+
+
+
+
   - Check placeholder images for Little Red Riding Hood and Dracula
   - Check game board style with Halloween theme (dark colors, spooky fonts)
   - Add basic layout and responsive design

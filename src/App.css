@@ -1,22 +1,44 @@
 .App {
   text-align: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url('/monster_brawl_background_arena.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-color: #0a0a0a;
   margin: 0;
-  padding: 2rem;
-  box-sizing: border-box;
+  padding: 1rem;
+  position: relative;
   overflow-x: hidden;
 }
 
+/* Dark overlay for better readability */
+.App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.App > * {
+  position: relative;
+  z-index: 1;
+}
+
 h1 {
-  font-size: 3.2em;
+  font-family: 'Creepster', cursive, sans-serif;
+  font-size: 3.5em;
   line-height: 1.1;
-  color: #ff6b35;
+  color: #ff4444;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 68, 68, 0.6);
+  margin: 1rem 0;
 }
 
 .characters {

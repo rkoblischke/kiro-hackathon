@@ -275,19 +275,33 @@
   - Ensure UI is clear and readable
   - _Requirements: 2.1, 6.1_
 
-- [ ] 11. Set up Express server
+- [x] 11. Set up Express server
+
+
+
+
+
   - Create server/index.js with Express configuration
   - Serve static files from dist directory
   - Handle routing to serve index.html for all routes
   - Configure port (default 3000)
   - _Requirements: 6.1_
 
-- [ ] 12. Add build and start scripts
+- [x] 12. Add build and start scripts
+
+
+
+
   - Configure Vite build command in package.json
   - Add dev script for development server
   - Add start script for production server
   - Test build process creates optimized bundle
   - _Requirements: 6.1_
 
-- [ ] 13. Final checkpoint - Ensure all tests pass
+- [x] 13. Final checkpoint - Ensure all tests pass
+
+
+
+
+
   - Ensure all tests pass, ask the user if questions arise.

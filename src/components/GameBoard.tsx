@@ -69,13 +69,13 @@ export function GameBoard() {
 
     // Set animation state
     setGameState(prev => setAnimationState(prev, true));
-    setPlayerAnimState({ isAttacking: true, isDefending: false, isHurt: false });
+    setPlayerAnimState({ isAttacking: true, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
 
     setTimeout(() => {
       // Update game state
       const newState = handlePlayerInsultSelection(gameState, insultId);
       setGameState(setAnimationState(newState, false));
-      setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+      setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
     }, 800); // Attack animation duration
   };
 
@@ -87,7 +87,7 @@ export function GameBoard() {
     
     // Set animation state
     setGameState(prev => setAnimationState(prev, true));
-    setOpponentAnimState({ isAttacking: false, isDefending: true, isHurt: false });
+    setOpponentAnimState({ isAttacking: false, isDefending: true, isHurt: false, isVictory: false, isDefeat: false });
 
     setTimeout(() => {
       // Evaluate comeback
@@ -96,14 +96,14 @@ export function GameBoard() {
 
       if (!isCorrect) {
         // Opponent takes damage - show hurt animation
-        setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true });
+        setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false });
         setTimeout(() => {
           setGameState(setAnimationState(newState, false));
-          setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+          setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
         }, 500);
       } else {
         setGameState(setAnimationState(newState, false));
-        setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+        setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
       }
     }, 600); // Defend animation duration
   };
@@ -114,13 +114,13 @@ export function GameBoard() {
     
     // Set animation state
     setGameState(prev => setAnimationState(prev, true));
-    setOpponentAnimState({ isAttacking: true, isDefending: false, isHurt: false });
+    setOpponentAnimState({ isAttacking: true, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
 
     setTimeout(() => {
       // Update game state
       const newState = handleOpponentInsultDelivery(gameState, selectedInsult.id);
       setGameState(setAnimationState(newState, false));
-      setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+      setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
     }, 800); // Attack animation duration
   };
 
@@ -130,7 +130,7 @@ export function GameBoard() {
 
     // Set animation state
     setGameState(prev => setAnimationState(prev, true));
-    setPlayerAnimState({ isAttacking: false, isDefending: true, isHurt: false });
+    setPlayerAnimState({ isAttacking: false, isDefending: true, isHurt: false, isVictory: false, isDefeat: false });
 
     setTimeout(() => {
       // Evaluate comeback
@@ -139,14 +139,14 @@ export function GameBoard() {
 
       if (!isCorrect) {
         // Player takes damage - show hurt animation
-        setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true });
+        setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false });
         setTimeout(() => {
           setGameState(setAnimationState(newState, false));
-          setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+          setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
         }, 500);
       } else {
         setGameState(setAnimationState(newState, false));
-        setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+        setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
       }
     }, 600); // Defend animation duration
   };

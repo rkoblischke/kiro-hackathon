@@ -1,16 +1,16 @@
 /**
- * Splash words for Batman-style comic book animations
+ * Splash words for gothic/fairy tale themed animations
  * Requirements: 9.2
  */
 
 export const SPLASH_WORDS: string[] = [
-  'POW',
-  'BAM',
-  'WHAM',
-  'KAPOW',
-  'THWACK',
-  'BIFF',
-  'SOCK',
-  'ZAP',
-  'CRASH'
+  'BITE',
+  'SLASH',
+  'HOWL',
+  'STRIKE',
+  'FANGS',
+  'CLAW',
+  'ROAR',
+  'CURSE',
+  'DOOM'
 ];

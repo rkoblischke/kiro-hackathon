@@ -35,7 +35,6 @@ export function StartScreen({ onProceed }: StartScreenProps) {
           🎃 MONSTER BRAWL 🎃
         </h1>
         <p className="game-subtitle">
-          Halloween Insult Combat Arena
         </p>
         <button 
           className="start-button action-button"

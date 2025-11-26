@@ -15,6 +15,7 @@ import {
   setAnimationState
 } from '../game/gameState';
 import { selectRandomInsult, selectComeback } from '../game/ai';
+import { startBackgroundMusic, stopBackgroundMusic } from '../utils/backgroundMusic';
 import { Character } from './Character';
 import { HealthBar } from './HealthBar';
 import { DialogueBox } from './DialogueBox';
@@ -25,6 +26,19 @@ export function GameBoard() {
   const [gameState, setGameState] = useState<GameState>(initializeGame());
   const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
   const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
+  const [showStartScreen, setShowStartScreen] = useState(true);
+
+  // Cleanup background music on unmount
+  useEffect(() => {
+    return () => {
+      stopBackgroundMusic();
+    };
+  }, []);
+
+  const handleStartGame = () => {
+    startBackgroundMusic();
+    setShowStartScreen(false);
+  };
 
   // Check for game over after each state change
   useEffect(() => {
@@ -207,8 +221,19 @@ export function GameBoard() {
 
   return (
     <div className="game-board">
+      {/* Start screen overlay */}
+      {showStartScreen && (
+        <div className="start-screen-overlay">
+          <div className="start-screen-content">
+            <h1 className="start-title">Monster Brawl</h1>
+            <p className="start-subtitle">A Battle of Wits and Insults</p>
+            <button className="start-button" onClick={handleStartGame}>Click to Start</button>
+          </div>
+        </div>
+      )}
+
       {/* Top area - Health bars at corners with character names */}
-      <div className="health-bars-container">
+      {!showStartScreen && <div className="health-bars-container">
         <HealthBar 
           current={gameState.player.health}
           max={gameState.player.maxHealth}
@@ -224,10 +249,10 @@ export function GameBoard() {
           position="right"
           characterName={gameState.opponent.name}
         />
-      </div>
+      </div>}
 
       {/* Center area - Characters */}
-      <div className="characters-container">
+      {!showStartScreen && <div className="characters-container">
         <div className="character-section">
           <Character 
             character={gameState.player}
@@ -255,10 +280,10 @@ export function GameBoard() {
             position="opponent"
           />
         </div>
-      </div>
+      </div>}
 
       {/* Bottom panel - Dialogue and actions */}
-      <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
+      {!showStartScreen && <div className={`bottom-panel ${gameState.phase === 'game-over' ? 'game-over-layout' : ''}`}>
         <DialogueBox 
           message={gameState.message}
           speaker={getSpeaker()}
@@ -277,7 +302,7 @@ export function GameBoard() {
             Play Again
           </button>
         )}
-      </div>
+      </div>}
     </div>
   );
 }

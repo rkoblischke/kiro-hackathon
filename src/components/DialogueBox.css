@@ -4,27 +4,32 @@
  */
 
 .dialogue-box {
-  min-height: 80px;
-  padding: 1rem 1.5rem;
-  margin: 1rem 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  min-height: 100px;
+  max-width: 800px;
+  width: 100%;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem auto;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
   transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
 .dialogue-content {
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-family: 'Butcherman', cursive, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
   text-align: center;
   font-weight: 500;
 }
 
 /* Player dialogue styling */
 .dialogue-box-player {
-  background: linear-gradient(135deg, #dc143c, #8b0000);
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.9), rgba(139, 0, 0, 0.9));
   border: 3px solid #ff6b6b;
   color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7), 0 0 20px rgba(220, 20, 60, 0.4);
 }
 
 .dialogue-box-player .dialogue-content {
@@ -33,10 +38,11 @@
 
 /* Opponent dialogue styling */
 .dialogue-box-opponent {
-  background: linear-gradient(135deg, #4a0080, #1a0033);
+  background: linear-gradient(135deg, rgba(74, 0, 128, 0.9), rgba(26, 0, 51, 0.9));
   border: 3px solid #8b00ff;
   color: #e0e0ff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7), 0 0 20px rgba(139, 0, 255, 0.4);
 }
 
 .dialogue-box-opponent .dialogue-content {
@@ -45,20 +51,50 @@
 
 /* System message styling */
 .dialogue-box-system {
-  background: linear-gradient(135deg, #2a2a2a, #0a0a0a);
+  background: linear-gradient(135deg, rgba(42, 42, 42, 0.95), rgba(10, 10, 10, 0.95));
   border: 3px solid #ff8c00;
   color: #ffa500;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(255, 140, 0, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 140, 0, 0.3);
 }
 
 .dialogue-box-system .dialogue-content {
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 /* Hover effect */
 .dialogue-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dialogue-box {
+    padding: 1.25rem 1.5rem;
+    min-height: 80px;
+    margin: 1rem auto;
+  }
+
+  .dialogue-content {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dialogue-box {
+    padding: 1rem;
+    min-height: 70px;
+  }
+
+  .dialogue-content {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .dialogue-box-system .dialogue-content {
+    letter-spacing: 1px;
+  }
 }

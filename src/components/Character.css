@@ -16,7 +16,7 @@
 
 .character-image {
   max-width: 300px;
-  height: auto;
+  height: 200px;
   filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5));
   transition: all 0.3s ease;
   border-radius: 10px;
@@ -50,27 +50,24 @@
   }
 }
 
-/* Attacking animation - cat fighting style lunge forward (800ms) */
+/* Attacking animation - Pokemon style: move toward opponent and attack (0.6s) */
 .character-container.attacking .character-sprite-wrapper {
-  animation: characterAttackWrapper 0.8s ease-out;
+  animation: characterAttackWrapper 0.6s ease-in-out forwards;
 }
 
 .character-container.attacking .character-image {
-  animation: characterAttack 0.8s ease-out;
+  animation: characterAttack 0.6s ease-in-out;
 }
 
 @keyframes characterAttackWrapper {
   0% {
     transform: translateX(0) skewX(0deg);
   }
-  30% {
-    transform: translateX(15px) skewX(3deg);
-  }
-  60% {
-    transform: translateX(-40px) skewX(-6deg);
+  50% {
+    transform: translateX(350px) skewX(5deg);
   }
   100% {
-    transform: translateX(0) skewX(0deg);
+    transform: translateX(350px) skewX(0deg);
   }
 }
 
@@ -79,16 +76,71 @@
     transform: scale(1) rotate(0deg);
     filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5)) brightness(1);
   }
-  30% {
-    transform: scale(0.95, 1.05) rotate(3deg);
+  50% {
+    transform: scale(1.1, 0.95) rotate(2deg);
     filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.8)) brightness(1.1);
   }
-  60% {
-    transform: scale(1.2, 0.9) rotate(-4deg);
+  100% {
+    transform: scale(1.2, 0.9) rotate(0deg);
     filter: drop-shadow(0 0 20px rgba(255, 50, 50, 1)) brightness(1.3);
   }
+}
+
+/* Waiting near opponent - stays in attack position */
+.character-container.waiting .character-sprite-wrapper {
+  transform: translateX(350px);
+  animation: characterWaitingWrapper 1.5s ease-in-out infinite;
+}
+
+.character-container.waiting .character-image {
+  animation: characterWaiting 1.5s ease-in-out infinite;
+}
+
+@keyframes characterWaitingWrapper {
+  0%, 100% {
+    transform: translateX(350px) translateY(0);
+  }
+  50% {
+    transform: translateX(350px) translateY(-5px);
+  }
+}
+
+@keyframes characterWaiting {
+  0%, 100% {
+    transform: scale(1.1, 0.95);
+    filter: drop-shadow(0 0 15px rgba(255, 50, 50, 0.8)) brightness(1.2);
+  }
+  50% {
+    transform: scale(1.15, 0.92);
+    filter: drop-shadow(0 0 18px rgba(255, 50, 50, 0.9)) brightness(1.25);
+  }
+}
+
+/* Returning to position after successful attack (0.5s) */
+.character-container.returning .character-sprite-wrapper {
+  animation: characterReturnWrapper 0.5s ease-in-out forwards;
+}
+
+.character-container.returning .character-image {
+  animation: characterReturn 0.5s ease-in-out;
+}
+
+@keyframes characterReturnWrapper {
+  0% {
+    transform: translateX(350px);
+  }
   100% {
-    transform: scale(1) rotate(0deg);
+    transform: translateX(0);
+  }
+}
+
+@keyframes characterReturn {
+  0% {
+    transform: scale(1.1, 0.95);
+    filter: drop-shadow(0 0 15px rgba(255, 50, 50, 0.8)) brightness(1.2);
+  }
+  100% {
+    transform: scale(1);
     filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5)) brightness(1);
   }
 }
@@ -193,24 +245,27 @@
   }
 }
 
-/* Defeat animation - collapse */
+/* Defeat animation - fall back and become transparent */
 .character-container.defeat .character-sprite-wrapper {
-  animation: characterDefeatWrapper 1s ease-out forwards;
+  animation: characterDefeatWrapper 1.5s ease-out forwards;
 }
 
 .character-container.defeat .character-image {
-  animation: characterDefeat 1s ease-out forwards;
+  animation: characterDefeat 1.5s ease-out forwards;
 }
 
 @keyframes characterDefeatWrapper {
   0% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateY(0) translateX(0) rotate(0deg);
   }
-  50% {
-    transform: translateY(10px) rotate(-5deg);
+  30% {
+    transform: translateY(-10px) translateX(-20px) rotate(-15deg);
+  }
+  70% {
+    transform: translateY(30px) translateX(-40px) rotate(-25deg);
   }
   100% {
-    transform: translateY(20px) rotate(-10deg);
+    transform: translateY(40px) translateX(-50px) rotate(-30deg);
   }
 }
 
@@ -220,9 +275,82 @@
     filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5)) brightness(1);
     opacity: 1;
   }
+  30% {
+    transform: scale(0.95, 1.05);
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.7)) brightness(0.9);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(0.85, 0.7);
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4)) brightness(0.6);
+    opacity: 0.5;
+  }
   100% {
     transform: scale(0.8, 0.6);
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3)) brightness(0.5);
-    opacity: 0.6;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3)) brightness(0.4);
+    opacity: 0.3;
+  }
+}
+
+/* Opponent-specific animations (move in opposite direction) */
+.character-container.opponent.attacking .character-sprite-wrapper {
+  animation: characterAttackWrapperOpponent 0.6s ease-in-out forwards;
+}
+
+@keyframes characterAttackWrapperOpponent {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+  50% {
+    transform: translateX(-350px) skewX(-5deg);
+  }
+  100% {
+    transform: translateX(-350px) skewX(0deg);
+  }
+}
+
+.character-container.opponent.waiting .character-sprite-wrapper {
+  transform: translateX(-350px);
+  animation: characterWaitingWrapperOpponent 1.5s ease-in-out infinite;
+}
+
+@keyframes characterWaitingWrapperOpponent {
+  0%, 100% {
+    transform: translateX(-350px) translateY(0);
+  }
+  50% {
+    transform: translateX(-350px) translateY(-5px);
+  }
+}
+
+.character-container.opponent.returning .character-sprite-wrapper {
+  animation: characterReturnWrapperOpponent 0.5s ease-in-out forwards;
+}
+
+@keyframes characterReturnWrapperOpponent {
+  0% {
+    transform: translateX(-350px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.character-container.opponent.defeat .character-sprite-wrapper {
+  animation: characterDefeatWrapperOpponent 1.5s ease-out forwards;
+}
+
+@keyframes characterDefeatWrapperOpponent {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-10px) translateX(20px) rotate(15deg);
+  }
+  70% {
+    transform: translateY(30px) translateX(40px) rotate(25deg);
+  }
+  100% {
+    transform: translateY(40px) translateX(50px) rotate(30deg);
   }
 }

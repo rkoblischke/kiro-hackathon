@@ -63,8 +63,13 @@
     - **Property 4: Successful defense prevents damage**
     - **Validates: Requirements 4.2**
 
-- [ ] 4. Implement AI opponent logic
-  - [ ] 4.1 Create AI selection functions
+- [-] 4. Implement AI opponent logic
+
+
+  - [x] 4.1 Create AI selection functions
+
+
+
     - Write function to randomly select insult from available options
     - Write function to select comeback (random or correct based on difficulty)
     - Ensure selections always return valid options from provided lists

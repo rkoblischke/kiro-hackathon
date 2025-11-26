@@ -67,6 +67,10 @@ export function GameBoard() {
   const handlePlayerInsult = (insultId: string) => {
     if (gameState.isAnimating || gameState.phase !== 'player-attack') return;
 
+    // Play attack sound
+    const attackSound = new Audio('/attack.wav');
+    attackSound.play().catch(err => console.log('Audio play failed:', err));
+
     // Set animation state - move to opponent
     setGameState(prev => setAnimationState(prev, true));
     setPlayerAnimState({ isAttacking: true, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
@@ -96,6 +100,8 @@ export function GameBoard() {
 
       if (!isCorrect) {
         // Opponent takes damage (35) - show hurt animation, player returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
         setTimeout(() => {
@@ -105,6 +111,8 @@ export function GameBoard() {
         }, 500);
       } else {
         // Player takes damage (20) from successful comeback - show hurt animation, player returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setTimeout(() => {
@@ -118,6 +126,10 @@ export function GameBoard() {
   const handleAIAttack = () => {
     // AI selects an insult
     const selectedInsult = selectRandomInsult(gameState.availableInsults);
+    
+    // Play attack sound
+    const attackSound = new Audio('/attack.wav');
+    attackSound.play().catch(err => console.log('Audio play failed:', err));
     
     // Set animation state - move to player
     setGameState(prev => setAnimationState(prev, true));
@@ -146,6 +158,8 @@ export function GameBoard() {
 
       if (!isCorrect) {
         // Player takes damage (35) - show hurt animation, opponent returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: true });
         setTimeout(() => {
@@ -155,6 +169,8 @@ export function GameBoard() {
         }, 500);
       } else {
         // Opponent takes damage (20) from successful comeback - show hurt animation, opponent returns
+        const hitSound = new Audio('/hit.wav');
+        hitSound.play().catch(err => console.log('Audio play failed:', err));
         setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: true, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false, isWaiting: false, isReturning: false });
         setTimeout(() => {

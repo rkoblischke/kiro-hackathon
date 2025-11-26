@@ -10,6 +10,38 @@ export interface Character {
   imageUrl: string;
 }
 
+/**
+ * Character template for roster - defines available characters
+ */
+export interface CharacterTemplate {
+  id: string;
+  name: string;
+  displayName: string;
+  description: string;
+  imageUrl: string;
+  thumbnailUrl: string;
+  maxHealth: number;
+  opponentId: string; // Default opponent for this character
+}
+
+/**
+ * Game flow state - tracks current screen and selections
+ */
+export interface GameFlowState {
+  currentScreen: 'start' | 'character-selection' | 'combat' | 'game-over';
+  selectedCharacterId: string | null;
+  selectedOpponentId: string | null;
+}
+
+/**
+ * Character selection state - manages selection UI
+ */
+export interface CharacterSelectionState {
+  characters: CharacterTemplate[];
+  selectedCharacter: CharacterTemplate | null;
+  hoveredCharacter: CharacterTemplate | null;
+}
+
 export interface Insult {
   id: string;
   text: string;

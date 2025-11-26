@@ -100,16 +100,22 @@
 
 /* Bottom panel - dialogue and actions */
 .bottom-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: start;
   width: 100%;
   padding: 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.85);
   border-top: 3px solid rgba(139, 0, 0, 0.6);
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.8);
-  min-height: 150px;
-  gap: 0.75rem;
+  min-height: 100px;
+  gap: 1.5rem;
+}
+
+.bottom-panel.game-over-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .restart-button {
@@ -160,12 +166,13 @@
 
   .bottom-panel {
     padding: 0.875rem 1.25rem;
-    min-height: 140px;
+    min-height: 90px;
+    gap: 1.25rem;
   }
 
   .game-board::before,
   .game-board::after {
-    bottom: 140px;
+    bottom: 90px;
   }
 }
 
@@ -195,7 +202,9 @@
 
   .bottom-panel {
     padding: 0.75rem 0.875rem;
-    min-height: 130px;
+    min-height: 85px;
+    gap: 1rem;
+    grid-template-columns: 1fr;
   }
 
   .restart-button {
@@ -205,7 +214,7 @@
 
   .game-board::before,
   .game-board::after {
-    bottom: 130px;
+    bottom: 85px;
   }
 }
 
@@ -228,7 +237,9 @@
 
   .bottom-panel {
     padding: 0.625rem 0.75rem;
-    min-height: 120px;
+    min-height: 80px;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
   }
 
   .restart-button {
@@ -238,7 +249,7 @@
 
   .game-board::before,
   .game-board::after {
-    bottom: 120px;
+    bottom: 80px;
   }
 }
 
@@ -259,8 +270,10 @@
   }
 
   .bottom-panel {
-    min-height: 110px;
+    min-height: 75px;
     padding: 0.5rem;
+    gap: 0.5rem;
+    grid-template-columns: 1fr;
   }
 
   .restart-button {
@@ -270,6 +283,6 @@
 
   .game-board::before,
   .game-board::after {
-    bottom: 110px;
+    bottom: 75px;
   }
 }

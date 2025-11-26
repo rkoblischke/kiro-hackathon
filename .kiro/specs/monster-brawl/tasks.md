@@ -25,7 +25,11 @@
   - Ensure each insult has a correctComebackId that maps to a comeback
   - _Requirements: 8.1, 8.2, 8.3_
 
-- [ ] 3. Implement core combat logic
+- [x] 3. Implement core combat logic
+
+
+
+
   - [x] 3.1 Create combat evaluation function
 
 
@@ -36,7 +40,13 @@
     - Return CombatResult with success boolean and appropriate message
     - _Requirements: 1.4, 3.2, 4.1, 8.4_
   
-  - [ ]* 3.2 Write property test for combat evaluation
+  - [x] 3.2 Write property test for combat evaluation
+
+
+
+
+
+
     - **Property 1: Combat evaluation correctness**
     - **Validates: Requirements 1.4, 3.2, 4.1, 8.4**
   
@@ -51,15 +61,46 @@
     - Return updated character with new health value
     - _Requirements: 1.5, 3.3, 4.3_
   
-  - [ ]* 3.4 Write property test for damage application
+  - [x] 3.4 Write property test for damage application
+
+
+
+
+
+
     - **Property 2: Damage application reduces health**
     - **Validates: Requirements 1.5**
-  
-  - [ ]* 3.5 Write property test for failed defense
+  -
+
+  - [x] 3.5 Write property test for failed defense
+
+
+
+
+
+
+
+
+
+
     - **Property 3: Failed defense applies damage**
     - **Validates: Requirements 3.3, 4.3**
   
-  - [ ]* 3.6 Write property test for successful defense
+  - [x] 3.6 Write property test for successful defense
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     - **Property 4: Successful defense prevents damage**
     - **Validates: Requirements 4.2**
 

@@ -26,7 +26,12 @@
   - _Requirements: 8.1, 8.2, 8.3_
 
 - [ ] 3. Implement core combat logic
-  - [ ] 3.1 Create combat evaluation function
+  - [x] 3.1 Create combat evaluation function
+
+
+
+
+
     - Write function to check if comeback ID matches insult's correctComebackId
     - Return CombatResult with success boolean and appropriate message
     - _Requirements: 1.4, 3.2, 4.1, 8.4_

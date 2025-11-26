@@ -14,7 +14,7 @@ const LITTLE_RED: Character = {
   name: 'Little Red Riding Hood',
   health: 100,
   maxHealth: 100,
-  imageUrl: '' // Placeholder for now
+  imageUrl: '/RedRidingHood.jpg'
 }
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
       <div className="characters">
         <div className="character">
           <h2>{LITTLE_RED.name}</h2>
+          <img src={LITTLE_RED.imageUrl} alt={LITTLE_RED.name} className="character-image" />
           <div className="health">HP: {LITTLE_RED.health}/{LITTLE_RED.maxHealth}</div>
         </div>
         <div className="character opponent">

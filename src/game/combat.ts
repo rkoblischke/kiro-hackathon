@@ -1,8 +1,36 @@
 /**
- * Combat logic for Monster Brawl game
+ * Combat logic for Monster Brawl
+ * Handles combat evaluation and damage application
  */
 
-import { Character } from '../types';
+import { Character, Insult, Comeback, CombatResult } from '../types';
+
+/**
+ * Evaluates whether a comeback successfully counters an insult
+ * 
+ * @param insult - The insult being countered
+ * @param comeback - The comeback being used
+ * @returns CombatResult with success status, damage amount, and message
+ * 
+ * Requirements: 1.4, 3.2, 4.1, 8.4
+ */
+export function evaluateCombat(insult: Insult, comeback: Comeback): CombatResult {
+  const success = comeback.id === insult.correctComebackId;
+  
+  if (success) {
+    return {
+      success: true,
+      damage: 0,
+      message: "Perfect counter! No damage taken."
+    };
+  } else {
+    return {
+      success: false,
+      damage: 15,
+      message: "The comeback failed! Taking damage."
+    };
+  }
+}
 
 /**
  * Applies damage to a character and returns the updated character.
@@ -11,6 +39,8 @@ import { Character } from '../types';
  * @param character - The character to apply damage to
  * @param damage - The amount of damage to apply
  * @returns A new character object with updated health
+ * 
+ * Requirements: 1.5, 3.3, 4.3
  */
 export function applyDamage(character: Character, damage: number): Character {
   const newHealth = Math.max(0, character.health - damage);

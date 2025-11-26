@@ -177,11 +177,28 @@ export function GameBoard() {
 
   return (
     <div className="game-board">
-      <h1 className="game-title">Monster Brawl</h1>
-      
+      {/* Top area - Health bars at corners with character names */}
+      <div className="health-bars-container">
+        <HealthBar 
+          current={gameState.player.health}
+          max={gameState.player.maxHealth}
+          label={gameState.player.name}
+          position="left"
+          characterName={gameState.player.name}
+        />
+        <h1 className="game-title">Monster Brawl</h1>
+        <HealthBar 
+          current={gameState.opponent.health}
+          max={gameState.opponent.maxHealth}
+          label={gameState.opponent.name}
+          position="right"
+          characterName={gameState.opponent.name}
+        />
+      </div>
+
+      {/* Center area - Characters */}
       <div className="characters-container">
         <div className="character-section">
-          <h2 className="character-name">{gameState.player.name}</h2>
           <Character 
             character={gameState.player}
             isAttacking={playerAnimState.isAttacking}
@@ -190,15 +207,9 @@ export function GameBoard() {
             isVictory={playerAnimState.isVictory}
             isDefeat={playerAnimState.isDefeat}
           />
-          <HealthBar 
-            current={gameState.player.health}
-            max={gameState.player.maxHealth}
-            label={gameState.player.name}
-          />
         </div>
 
         <div className="character-section">
-          <h2 className="character-name">{gameState.opponent.name}</h2>
           <Character 
             character={gameState.opponent}
             isAttacking={opponentAnimState.isAttacking}
@@ -207,32 +218,30 @@ export function GameBoard() {
             isVictory={opponentAnimState.isVictory}
             isDefeat={opponentAnimState.isDefeat}
           />
-          <HealthBar 
-            current={gameState.opponent.health}
-            max={gameState.opponent.maxHealth}
-            label={gameState.opponent.name}
-          />
         </div>
       </div>
 
-      <DialogueBox 
-        message={gameState.message}
-        speaker={getSpeaker()}
-      />
-
-      {showActions && (
-        <ActionButtons 
-          options={actionOptions}
-          onSelect={handleAction}
-          disabled={gameState.isAnimating}
+      {/* Bottom panel - Dialogue and actions */}
+      <div className="bottom-panel">
+        <DialogueBox 
+          message={gameState.message}
+          speaker={getSpeaker()}
         />
-      )}
 
-      {gameState.phase === 'game-over' && (
-        <button className="restart-button" onClick={handleRestart}>
-          Play Again
-        </button>
-      )}
+        {showActions && (
+          <ActionButtons 
+            options={actionOptions}
+            onSelect={handleAction}
+            disabled={gameState.isAnimating}
+          />
+        )}
+
+        {gameState.phase === 'game-over' && (
+          <button className="restart-button" onClick={handleRestart}>
+            Play Again
+          </button>
+        )}
+      </div>
     </div>
   );
 }

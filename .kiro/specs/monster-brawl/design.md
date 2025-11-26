@@ -89,22 +89,27 @@ interface CombatResult {
 - Props: None (root component)
 - State: GameState
 - Responsibilities: Orchestrate game flow, handle turn progression
+- Layout: Mortal Kombat-style with health bars at top corners, characters in center, dialogue panel at bottom
 
 **Character**: Displays character sprite with animations
 - Props: `{ character: Character, isAttacking: boolean, isDefending: boolean, isHurt: boolean }`
 - Responsibilities: Render character image, apply animation classes
+- Position: Center area of screen
 
 **HealthBar**: Visual representation of character health
-- Props: `{ current: number, max: number, label: string }`
+- Props: `{ current: number, max: number, label: string, position: 'left' | 'right' }`
 - Responsibilities: Display health as percentage bar
+- Position: Upper left corner (player) or upper right corner (opponent)
 
 **DialogueBox**: Shows insults, comebacks, and game messages
 - Props: `{ message: string, speaker: 'player' | 'opponent' | 'system' }`
 - Responsibilities: Display text with appropriate styling
+- Position: Bottom panel of screen
 
 **ActionButtons**: Interactive buttons for player choices
 - Props: `{ options: Array<{id: string, text: string}>, onSelect: (id: string) => void, disabled: boolean }`
 - Responsibilities: Render clickable options, handle selection
+- Position: Bottom panel of screen, below or integrated with dialogue
 
 ## Data Models
 
@@ -195,6 +200,18 @@ Property 9: Actions blocked after game over
 Property 10: State transitions maintain consistency
 *For any* valid game state transition (e.g., selecting an insult), the resulting state should have consistent phase, turn, and available options
 **Validates: Requirements 1.3**
+
+Property 11: Health bar positioning
+*For any* rendered game state, the player health bar should be positioned in the upper left corner and the opponent health bar should be positioned in the upper right corner
+**Validates: Requirements 2.6, 2.7**
+
+Property 12: Bottom panel visibility
+*For any* rendered game state, the dialogue box and action buttons should be contained within a panel at the bottom of the screen
+**Validates: Requirements 2.8**
+
+Property 13: Responsive layout integrity
+*For any* viewport width >= 320px, all UI elements (health bars, characters, dialogue, buttons) should remain visible and readable
+**Validates: Requirements 2.9**
 
 ## Error Handling
 
@@ -287,6 +304,52 @@ src/
 4. Play character animations
 5. Update health/state after animation completes
 6. Set `isAnimating: false` to allow next action
+
+## Layout and Responsive Design
+
+### Mortal Kombat-Style Layout
+
+The game uses a classic fighting game layout inspired by Mortal Kombat:
+
+```
+┌─────────────────────────────────────────────────────┐
+│ [Player Health]              [Opponent Health]      │
+│  Upper Left                   Upper Right           │
+│                                                      │
+│                                                      │
+│         [Player]          [Opponent]                │
+│         Character         Character                 │
+│           (Center Area)                             │
+│                                                      │
+│                                                      │
+│ ┌─────────────────────────────────────────────────┐ │
+│ │  Dialogue Box                                   │ │
+│ │  "Your fangs are as dull as your wit!"         │ │
+│ │                                                 │ │
+│ │  [Action Button 1] [Action Button 2] [Button 3]│ │
+│ └─────────────────────────────────────────────────┘ │
+│                  Bottom Panel                        │
+└─────────────────────────────────────────────────────┘
+```
+
+### Responsive Design Requirements
+
+- **Health Bars**: Fixed position at top corners, scale text size for smaller screens
+- **Characters**: Center-positioned with flexible sizing, maintain aspect ratio
+- **Bottom Panel**: Fixed height, scrollable if content overflows on small screens
+- **Minimum Viewport**: Support down to 320px width (mobile devices)
+- **Breakpoints**: 
+  - Mobile: < 768px (stack elements vertically if needed)
+  - Tablet: 768px - 1024px
+  - Desktop: > 1024px
+
+### CSS Layout Strategy
+
+- Use CSS Grid or Flexbox for main layout structure
+- Position health bars with `position: absolute` or CSS Grid areas
+- Bottom panel uses fixed positioning or flex layout
+- All text must have minimum readable font sizes
+- Use viewport units (vw, vh) for responsive scaling where appropriate
 
 ## Deployment
 

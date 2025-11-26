@@ -37,7 +37,7 @@ describe('Component Rendering', () => {
       <HealthBar current={75} max={100} label="Test" />
     );
 
-    expect(getByText('Test: 75/100')).toBeTruthy();
+    expect(getByText('75/100 HP')).toBeTruthy();
   });
 
   it('DialogueBox component renders message', () => {

@@ -305,3 +305,53 @@
 
 
   - Ensure all tests pass, ask the user if questions arise.
+
+- [x] 14. Implement Mortal Kombat-style layout
+
+
+
+
+  - [x] 14.1 Update GameBoard CSS for grid/flex layout
+
+
+    - Create main layout structure with top area for health bars, center for characters, bottom for dialogue panel
+    - Use CSS Grid or Flexbox to organize layout sections
+    - _Requirements: 2.6, 2.7, 2.8_
+  
+  - [x] 14.2 Position health bars at top corners
+
+
+    - Update HealthBar component to accept position prop ('left' | 'right')
+    - Style player health bar for upper left corner positioning
+    - Style opponent health bar for upper right corner positioning
+    - Ensure health bars are fixed or absolutely positioned at top corners
+    - _Requirements: 2.6, 2.7_
+  
+  - [x] 14.3 Create bottom panel for dialogue and actions
+
+
+    - Create or update CSS for bottom panel container
+    - Position DialogueBox within bottom panel
+    - Position ActionButtons within bottom panel
+    - Ensure panel has fixed height and appropriate padding
+    - _Requirements: 2.8_
+  
+  - [x] 14.4 Implement responsive design
+
+
+    - Add CSS media queries for mobile (< 768px), tablet (768-1024px), and desktop (> 1024px)
+    - Ensure minimum viewport width of 320px is supported
+    - Scale font sizes appropriately for different screen sizes
+    - Ensure all elements remain visible and readable at all breakpoints
+    - Test layout at various viewport sizes
+    - _Requirements: 2.9_
+  
+  - [ ]* 14.5 Write unit tests for layout rendering
+    - Test that HealthBar component renders with correct position class
+    - Test that bottom panel contains dialogue and action elements
+    - Verify component structure matches layout requirements
+    - _Requirements: 2.6, 2.7, 2.8_
+
+- [ ] 15. Final checkpoint - Verify layout and responsiveness
+  - Ensure all tests pass, ask the user if questions arise.
+  - Manually verify layout appears correctly in browser at different sizes

@@ -39,6 +39,10 @@ A web-based Halloween-themed sword fighting game inspired by Monkey Island's com
 3. WHEN an insult is delivered THEN the Game System SHALL display the insult text in a dialogue area
 4. WHEN a comeback is delivered THEN the Game System SHALL display the comeback text in a dialogue area
 5. WHEN combat ends THEN the Game System SHALL display a victory or defeat message
+6. WHEN the game renders THEN the Game System SHALL position the Player Character health bar in the upper left corner
+7. WHEN the game renders THEN the Game System SHALL position the Opponent Character health bar in the upper right corner
+8. WHEN the game renders THEN the Game System SHALL position the dialogue and action buttons in a panel at the bottom of the screen
+9. WHEN the browser window is resized THEN the Game System SHALL maintain visibility and readability of all UI elements
 
 ### Requirement 3
 

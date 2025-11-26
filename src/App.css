@@ -2,34 +2,11 @@
   text-align: center;
   width: 100vw;
   min-height: 100vh;
-  background-image: url('/monster_brawl_background_arena.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   background-color: #0a0a0a;
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   position: relative;
   overflow-x: hidden;
-}
-
-/* Dark overlay for better readability */
-.App::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.App > * {
-  position: relative;
-  z-index: 1;
 }
 
 h1 {

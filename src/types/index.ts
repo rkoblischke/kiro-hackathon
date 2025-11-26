@@ -10,10 +10,21 @@ export interface Character {
   imageUrl: string;
 }
 
+export type InsultCategory = 'mom' | 'creature' | 'hygiene' | 'pun' | 'fashion' | 'power' | 'social';
+
+export interface CategoryConfig {
+  name: string;
+  color: string;
+  displayName: string;
+}
+
+export type CategoryMap = Record<InsultCategory, CategoryConfig>;
+
 export interface Insult {
   id: string;
   text: string;
   correctComebackId: string;
+  category: InsultCategory;
 }
 
 export interface Comeback {

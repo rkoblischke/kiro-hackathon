@@ -300,6 +300,7 @@ export function GameBoard() {
           <DialogueBox 
             message={gameState.message}
             speaker={getSpeaker()}
+            category={gameState.currentInsult?.category}
           />
         </div>
       )}
@@ -312,6 +313,7 @@ export function GameBoard() {
               <DialogueBox 
                 message={gameState.message}
                 speaker={getSpeaker()}
+                category={gameState.currentInsult?.category}
               />
             </div>
           )}

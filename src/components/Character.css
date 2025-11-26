@@ -7,11 +7,12 @@
   position: relative;
   display: inline-block;
   transition: transform 0.3s ease;
+  padding: 30px; /* Add padding to allow glow effects to extend */
 }
 
 .character-sprite-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to visible to allow glow effects */
 }
 
 .character-image {
@@ -86,32 +87,46 @@
   }
 }
 
-/* Waiting near opponent - stays in attack position */
+/* Waiting near opponent - stays in attack position with catfighting motion */
 .character-container.waiting .character-sprite-wrapper {
   transform: translateX(350px);
-  animation: characterWaitingWrapper 1.5s ease-in-out infinite;
+  animation: characterWaitingWrapper 0.15s ease-in-out infinite;
 }
 
 .character-container.waiting .character-image {
-  animation: characterWaiting 1.5s ease-in-out infinite;
+  animation: characterWaiting 0.15s ease-in-out infinite;
 }
 
 @keyframes characterWaitingWrapper {
   0%, 100% {
-    transform: translateX(350px) translateY(0);
+    transform: translateX(350px) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(350px) translateY(-3px) rotate(-8deg);
   }
   50% {
-    transform: translateX(350px) translateY(-5px);
+    transform: translateX(350px) translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateX(350px) translateY(-3px) rotate(8deg);
   }
 }
 
 @keyframes characterWaiting {
   0%, 100% {
-    transform: scale(1.1, 0.95);
+    transform: scale(1.1, 0.95) skewX(0deg);
     filter: drop-shadow(0 0 15px rgba(255, 50, 50, 0.8)) brightness(1.2);
   }
+  25% {
+    transform: scale(1.15, 0.92) skewX(5deg);
+    filter: drop-shadow(0 0 18px rgba(255, 50, 50, 0.9)) brightness(1.25);
+  }
   50% {
-    transform: scale(1.15, 0.92);
+    transform: scale(1.1, 0.95) skewX(0deg);
+    filter: drop-shadow(0 0 15px rgba(255, 50, 50, 0.8)) brightness(1.2);
+  }
+  75% {
+    transform: scale(1.15, 0.92) skewX(-5deg);
     filter: drop-shadow(0 0 18px rgba(255, 50, 50, 0.9)) brightness(1.25);
   }
 }
@@ -311,15 +326,21 @@
 
 .character-container.opponent.waiting .character-sprite-wrapper {
   transform: translateX(-350px);
-  animation: characterWaitingWrapperOpponent 1.5s ease-in-out infinite;
+  animation: characterWaitingWrapperOpponent 0.15s ease-in-out infinite;
 }
 
 @keyframes characterWaitingWrapperOpponent {
   0%, 100% {
-    transform: translateX(-350px) translateY(0);
+    transform: translateX(-350px) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-350px) translateY(-3px) rotate(8deg);
   }
   50% {
-    transform: translateX(-350px) translateY(-5px);
+    transform: translateX(-350px) translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-350px) translateY(-3px) rotate(-8deg);
   }
 }
 

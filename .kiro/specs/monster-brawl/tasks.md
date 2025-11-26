@@ -9,7 +9,12 @@
   - Set up basic Express server to serve static files
   - _Requirements: 6.1, 6.4_
 
-- [ ] 2. Define core types and data structures
+- [x] 2. Define core types and data structures
+
+
+
+
+
   - Create TypeScript interfaces for Character, Insult, Comeback, GameState, and CombatResult
   - Define insult and comeback data with matching pairs (minimum 6 insults with correct comebacks)
   - Ensure each insult has a correctComebackId that maps to a comeback

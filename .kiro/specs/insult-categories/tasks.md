@@ -99,6 +99,10 @@
     - Verify color styling appears in rendered output
     - _Requirements: 2.2, 2.4, 2.5_
 
-- [ ] 5. Checkpoint - Ensure all tests pass
+- [x] 5. Checkpoint - Ensure all tests pass
+
+
+
+
 
   - Ensure all tests pass, ask the user if questions arise.

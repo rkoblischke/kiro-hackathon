@@ -23,14 +23,23 @@ import './GameBoard.css';
 
 export function GameBoard() {
   const [gameState, setGameState] = useState<GameState>(initializeGame());
-  const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false });
-  const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false });
+  const [playerAnimState, setPlayerAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
+  const [opponentAnimState, setOpponentAnimState] = useState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
 
   // Check for game over after each state change
   useEffect(() => {
     const updatedState = checkGameOver(gameState);
     if (updatedState.phase === 'game-over' && gameState.phase !== 'game-over') {
       setGameState(updatedState);
+      
+      // Set victory/defeat animations
+      if (gameState.player.health <= 0) {
+        setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true });
+        setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false });
+      } else if (gameState.opponent.health <= 0) {
+        setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: true, isDefeat: false });
+        setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: true });
+      }
     }
   }, [gameState.player.health, gameState.opponent.health]);
 
@@ -144,8 +153,8 @@ export function GameBoard() {
 
   const handleRestart = () => {
     setGameState(initializeGame());
-    setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false });
-    setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false });
+    setPlayerAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
+    setOpponentAnimState({ isAttacking: false, isDefending: false, isHurt: false, isVictory: false, isDefeat: false });
   };
 
   // Determine dialogue speaker
@@ -178,6 +187,8 @@ export function GameBoard() {
             isAttacking={playerAnimState.isAttacking}
             isDefending={playerAnimState.isDefending}
             isHurt={playerAnimState.isHurt}
+            isVictory={playerAnimState.isVictory}
+            isDefeat={playerAnimState.isDefeat}
           />
           <HealthBar 
             current={gameState.player.health}
@@ -193,6 +204,8 @@ export function GameBoard() {
             isAttacking={opponentAnimState.isAttacking}
             isDefending={opponentAnimState.isDefending}
             isHurt={opponentAnimState.isHurt}
+            isVictory={opponentAnimState.isVictory}
+            isDefeat={opponentAnimState.isDefeat}
           />
           <HealthBar 
             current={gameState.opponent.health}

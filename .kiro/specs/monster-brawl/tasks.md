@@ -228,7 +228,10 @@
     - Provide restart functionality
     - _Requirements: 1.1, 1.3, 5.5, 6.3_
 
-- [-] 7. Implement CSS animations
+- [x] 7. Implement CSS animations
+
+
+
 
 
   - Create keyframe animations for attacking (lunge forward)

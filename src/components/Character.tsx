@@ -11,13 +11,19 @@ interface CharacterProps {
   isAttacking: boolean;
   isDefending: boolean;
   isHurt: boolean;
+  isVictory?: boolean;
+  isDefeat?: boolean;
 }
 
-export function Character({ character, isAttacking, isDefending, isHurt }: CharacterProps) {
+export function Character({ character, isAttacking, isDefending, isHurt, isVictory, isDefeat }: CharacterProps) {
   // Determine animation class based on props
   let animationClass = 'idle';
   
-  if (isAttacking) {
+  if (isVictory) {
+    animationClass = 'victory';
+  } else if (isDefeat) {
+    animationClass = 'defeat';
+  } else if (isAttacking) {
     animationClass = 'attacking';
   } else if (isDefending) {
     animationClass = 'defending';
